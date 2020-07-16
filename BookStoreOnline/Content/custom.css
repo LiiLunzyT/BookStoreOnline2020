@@ -1,0 +1,18 @@
+/*********************************************************************************
+
+	Template Name: Boighor Bookshop Responsive Bootstrap4 Template  
+	Description: Template description
+	Version: 1.0
+	Note: This is custom css. All custom styles (user styles) declare here.
+
+**********************************************************************************/
+
+._price {
+    color: #ce7852 !important;
+    margin-right: 20px;
+    font-weight: 700;
+}
+._old-price {
+    color: #7d7d7d !important;
+    text-decoration: line-through;
+}
