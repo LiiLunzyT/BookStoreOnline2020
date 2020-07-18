@@ -4,10 +4,10 @@
     },
     regEvents: function () {
         $('#btnContinue').off('click').on('click', function () {
-            window.location.href = "/";
+            window.location.href = "/danh-muc";
         });
         $('#btnPayment').off('click').on('click', function () {
-            window.location.href = "/thanh-toan";
+            window.location.href = "/gio-hang/thanh-toan";
         });
         $('#btnUpdate').off('click').on('click', function () {
             var listProduct = $('.txtQuantity');
@@ -15,8 +15,8 @@
             $.each(listProduct, function (i, item) {
                 cartList.push({
                     Quantity: $(item).val(),
-                    Product: {
-                        ID: $(item).data('id')
+                    book: {
+                        BookID: $(item).data('bookid')
                     }
                 });
             });
@@ -35,7 +35,6 @@
         });
 
         $('#btnDeleteAll').off('click').on('click', function () {
-
 
             $.ajax({
                 url: '/Cart/DeleteAll',
@@ -65,4 +64,33 @@
         });
     }
 }
+
 cart.init();
+
+function addItem(bookID) {
+    $.ajax({
+        type: 'GET',
+        url: '/Cart/Increase',
+        data: { bookID: bookID },
+        success: function (result) {
+            $('#cart-table-container').html(result)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}
+
+function subItem(bookID) {
+    $.ajax({
+        type: 'GET',
+        url: '/Cart/Decrease',
+        data: { bookID: bookID },
+        success: function (result) {
+            $('#cart-table-container').html(result)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}

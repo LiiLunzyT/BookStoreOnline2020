@@ -4,6 +4,9 @@
 
 @{
     Html.RenderPartial("_Banner");
-    Html.RenderPartial("_NewBooks");
-    Html.RenderPartial("_BestSeller");
+    Html.RenderAction("NewBooks", "Home");
+}
+
+@section scripts{
+    <script src="/assets/client/js/controller/bookController.js"></script>
 }

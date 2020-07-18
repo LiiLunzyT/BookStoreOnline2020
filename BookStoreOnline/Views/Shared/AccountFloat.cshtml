@@ -1,15 +1,35 @@
-﻿<a class="setting__active" href="#"></a>
+﻿
+@{ 
+    var customer = Session["CUSTOMER_SESSION"];
+    var login = false;
+    var cus = new BookStoreOnline.Common.CustomerLogin();
+    if(customer != null)
+    {
+        login = true;
+        cus = (BookStoreOnline.Common.CustomerLogin)customer;
+    }
+}
+
+<a class="setting__active" href="#"></a>
 <div class="searchbar__content setting__block">
     <div class="content-inner">
         <div class="switcher-currency">
             <strong class="label switcher-label">
-                <span>My Account</span>
+                <span>Xin chào @cus.UserName</span>
             </strong>
             <div class="switcher-options">
                 <div class="switcher-currency-trigger">
                     <div class="setting__menu">
-                        <span><a href="#">Đăng Nhập</a></span>
-                        <span><a href="#">Tạo Tài Khoản</a></span>
+                        @if (login)
+                        {
+                            <span><a href="/tai-khoan">Thông tin tài khoản</a></span>
+                            <br />
+                            <span><a href="/tai-khoan">Danh sách yêu thích</a></span>
+                        }
+                        @if (!login) {
+                        <span><a href="/tai-khoan/dang-nhap">Đăng Nhập</a></span>
+                        <span><a href="/tai-khoan/dang-ky">Tạo Tài Khoản</a></span>
+                        }
                     </div>
                 </div>
             </div>

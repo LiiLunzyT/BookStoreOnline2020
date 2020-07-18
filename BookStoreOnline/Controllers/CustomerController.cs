@@ -10,15 +10,24 @@ using BookStoreOnline.Common;
 
 namespace BookStoreOnline.Controllers
 {
+    [RoutePrefix("tai-khoan")]
     public class CustomerController : Controller
     {
-        // GET: Customer
+        [Route]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Login(CustomerLoginViewModel model)
+        [Route("dang-nhap")]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [Route("dang-nhap")]
+        [HttpPost]
+        public ActionResult SendLogin(CustomerLoginViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -27,30 +36,69 @@ namespace BookStoreOnline.Controllers
                 if(result)
                 {
                     var user = dao.GetByUsername(model.Username);
-                    var userSession = new UserLogin();
-                    userSession.UserID = user.UserID;
-                    userSession.UserName = user.UserName;
-                    userSession.Role = user.Role.RoleName;
-                    Session.Add(CommonConstants.USER_SESSION, userSession);
+
+                    var customerSession = new CustomerLogin();
+                    customerSession.UserID = user.UserID;
+                    customerSession.UserName = user.UserName;
+                    Session.Add(CommonConstants.CUSTOMER_SESSION, customerSession);
                     return RedirectToAction("Index", "Home"); 
                 } else
                 {
                     ModelState.AddModelError("", "Đăng nhập thất bại");
                 }
             }
-            return View("Index");
+            return View("Login");
         }
 
+        [Route("dang-ky")]
         public ActionResult Register()
         {
             return View();
         }
 
+        [Route("dang-ky")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(CustomerRegisterViewModel model)
+        public ActionResult SendRegister(CustomerRegisterViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDAO();
+                var cdao = new CustomerDAO();
+                var result = dao.GetByUsername(model.Username);
+                if (result != null)
+                {
+                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
+                } else
+                {
+                    User newUser = new User();
+                    Customer newCustomer = new Customer();
+
+                    newUser.UserID = dao.getNewID();
+                    newUser.UserName = model.Username;
+                    newUser.Password = model.Password;
+                    newUser.CreatedByDate = DateTime.Now;
+                    newUser.RoleID = "RL-003";
+                    dao.Insert(newUser);
+
+                    newCustomer.CustomerID = cdao.getNewID();
+                    newCustomer.CustomerName = model.CustomerName;
+                    newCustomer.CustomerAddress = model.Address;
+                    newCustomer.Birth = model.Birth;
+                    newCustomer.PhoneNumber = model.PhoneNumber;
+                    newCustomer.Email = model.Email;
+                    newCustomer.Gender = model.Gender;
+                    newCustomer.UserID = newUser.UserID;
+                    cdao.Insert(newCustomer);
+
+                    var customerSession = new CustomerLogin();
+                    customerSession.UserID = newUser.UserID;
+                    customerSession.UserName = newUser.UserName;
+                    Session.Add(CommonConstants.CUSTOMER_SESSION, customerSession);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View("Register");
         }
+        
     }
 }

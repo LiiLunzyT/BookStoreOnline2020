@@ -25,6 +25,16 @@ namespace BookStoreOnline.Controllers
             return View(book);
         }
 
+        public JsonResult ListName(string q)
+        {
+            var data = new BookDAO().ListName(q);
+            return Json(new
+            {
+                data = data,
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         [ChildActionOnly]
         public ActionResult BookCard(Book enity)
         {

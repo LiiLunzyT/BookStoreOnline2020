@@ -1,32 +1,42 @@
-﻿@{
-    ViewBag.Title = "Login";
+﻿@model BookStoreOnline.Models.CustomerLoginViewModel
+
+@{
+    ViewBag.Title = "Đăng nhập";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="my_account_area pt--80 pb--55 bg--white">
-    <div class="container row justify-content-center">
-        <div class="my__account__wrapper col-lg-6">
-            <h3 class="account__title">Login</h3>
-            <form action="#">
+@{
+    Html.RenderPartial("_Bradcaum");
+}
+
+<section class="my_account_area row justify-content-center pt--50 pb--55 bg--white">
+    <div class="container-fluid row justify-content-center">
+        <div class="my__account__wrapper col-md-6">
+            <h3 class="account__title text-center">@ViewBag.Title</h3>
+            @using (Html.BeginForm("SendLogin", "Customer", FormMethod.Post))
+            {
                 <div class="account__form">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="input__box">
-                        <label>Username or email address <span>*</span></label>
-                        <input type="text">
+                        @Html.LabelFor(model => model.Username)
+                        @Html.EditorFor(model => model.Username, new { @class = "form-control", @autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                     </div>
                     <div class="input__box">
-                        <label>Password<span>*</span></label>
-                        <input type="text">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.EditorFor(model => model.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form__btn">
-                        <button>Login</button>
-                        <label class="label-for-checkbox">
-                            <input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
-                            <span>Remember me</span>
-                        </label>
+                    <div class="form__btn row justify-content-center align-items-center">
+                        <button>Đăng nhập</button>
                     </div>
-                    <a class="forget_pass" href="#">Lost your password?</a>
+                    <label class="label-for-checkbox">
+                        <input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
+                        <span>Ghi nhớ tài khoản</span>
+                    </label>
+                    <a class="forget_pass" href="#">Quên mật khẩu?</a>
                 </div>
-            </form>
+            }
         </div>
     </div>
 </section>

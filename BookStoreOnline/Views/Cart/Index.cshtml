@@ -1,0 +1,40 @@
+﻿@model List<BookStoreOnline.Models.CartItem>
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var total = 0;
+}
+
+@{
+    Html.RenderPartial("_Bradcaum");
+}
+
+<div class="cart-main-area section-padding--lg bg--white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ol-lg-12">
+                <div id="cart-table-container">
+                    @{ 
+                        Html.RenderPartial("_CartPartial", Model);
+                    }
+                </div>
+                <div class="cartbox__btn flex-column mb-3">
+                    <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+                        <li><a id="btnContinue" href="#">Tiếp tục mua hàng</a></li>
+                        <li><a id="btnDeleteAll" href="#">Xoá giỏ hàng</a></li>
+                        <li><a id="btnUpdate" href="#">Cập nhật giỏ hàng</a></li>
+                        <li><a id="btnPayment" href="#">Thanh toán</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="/assets/client/js/controller/cartController.js"></script>
+}
+

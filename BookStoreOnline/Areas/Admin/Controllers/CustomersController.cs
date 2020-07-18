@@ -115,7 +115,10 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             Customer customer = db.Customers.Find(id);
+            User user = db.Users.Find(customer.UserID);
             db.Customers.Remove(customer);
+            db.SaveChanges();
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

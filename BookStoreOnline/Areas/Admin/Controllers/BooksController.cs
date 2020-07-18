@@ -15,9 +15,24 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         private BookStore db = new BookStore();
 
         // GET: Admin/Books
+
+
+
         public ActionResult Index()
         {
-            var books = db.Books.Include(b => b.Author).Include(b => b.Producer);
+            var books = db.Books.Include(n => n.Author);
+            return View(db.Books.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Index(string maBook, string hoten)
+        {
+
+            //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
+            /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
+
+            var books = db.Books.Where(abc => abc.BookID.Contains(maBook) && (abc.BookName).Contains(hoten));
+
             return View(books.ToList());
         }
 
@@ -53,8 +68,18 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BookID,BookName,Price,DiscountPercent,Quantity,TotalSell,Avatar,CreateByDate,Url,Publisher,PublicByDate,BookCover,Pages,BookDescription,AuthorID,ProducerID")] Book book)
         {
+            var imgNV = Request.Files["Avatar"];
+            //Lấy thông tin từ input type=file có tên Avatar
+            string postedFileName = System.IO.Path.GetFileName(imgNV.FileName);
+            //Lưu hình đại diện về Server
+            var path = Server.MapPath("/Images/" + postedFileName);
+            imgNV.SaveAs(path);
+
+
             if (ModelState.IsValid)
             {
+                book.Avatar = postedFileName;
+
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,20 +114,18 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "BookID,BookName,Price,DiscountPercent,Quantity,Avatar,CreateByDate,Url,Publisher,PublicByDate,BookCover,Pages,BookDescription,AuthorID,ProducerID")] Book book)
         {
-            var imgNV = Request.Files["uploadAvatar"];
-            try
-            {
-                //Lấy thông tin từ input type=file có tên Avatar
-                string postedFileName = System.IO.Path.GetFileName(imgNV.FileName);
-                //Lưu hình đại diện về Server
-                var path = Server.MapPath("/images/books" + postedFileName);
-                imgNV.SaveAs(path);
-            }
-            catch
-            { }
+
+            var imgNV = Request.Files["Avatar"];
+            //Lấy thông tin từ input type=file có tên Avatar
+            string postedFileName = System.IO.Path.GetFileName(imgNV.FileName);
+            //Lưu hình đại diện về Server
+            var path = Server.MapPath("/Images/" + postedFileName);
+            imgNV.SaveAs(path);
+
 
             if (ModelState.IsValid)
             {
+                book.Avatar = postedFileName;
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

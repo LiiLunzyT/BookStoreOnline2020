@@ -10,15 +10,29 @@ using Model.EF;
 
 namespace BookStoreOnline.Areas.Admin.Controllers
 {
-    public class AuthorsController : Controller
+    public class AuthorsController : BaseController
     {
         private BookStore db = new BookStore();
 
         // GET: Admin/Authors
         public ActionResult Index()
         {
-            return View(db.Authors.ToList());
+            var authors = db.Authors.Include(u => u.Books);
+            return View(authors.ToList());
         }
+        [HttpPost]
+        public ActionResult Index(string hoten)
+        {
+
+            //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
+            /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
+
+            var authors = db.Authors.Where(abc => abc.AuthorName.Contains(hoten));
+            return View(authors.ToList());
+        }
+
+
+
 
         // GET: Admin/Authors/Details/5
         public ActionResult Details(string id)
@@ -133,7 +147,7 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             var lastRow = db.Authors.OrderBy(c => 1 == 1).Skip(countOfRows - 1).FirstOrDefault();
             String lastID = lastRow.AuthorID;
             int id = int.Parse(lastID.Split('-')[1]);
-            String str = "" + (id+1);
+            String str = "" + (id + 1);
 
             return "AU-" + str.PadLeft(3, '0');
         }

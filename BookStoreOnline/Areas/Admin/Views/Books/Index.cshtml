@@ -1,28 +1,114 @@
 ﻿@model IEnumerable<Model.EF.Book>
 
-@{
-    ViewBag.Title = "Index";
+@{ ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     var grid = new WebGrid(source: Model, rowsPerPage: 5);
-}
+@Scripts.Render("~/Scripts/jquery-1.6.2.min.js") }
 
-<h2>Index</h2>
+<h2 style="text-align:center">QUẢN LÝ SÁCH</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
-<div id="gridContent">
-    @ViewBag.TB
-    @grid.GetHtml(
-        tableStyle: "table table-sm table-bordered table-hover table-striped",
-        headerStyle: "thead-dark",
-        footerStyle: "grid-footer",
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.Numeric,
-        alternatingRowStyle: "alternatingRowStyle",
-        columns: new[]  // colums in grid
+
+<html>
+<head>
+    <style type="text/css">
+        .grid-footer {
+            color: #000;
+            font: 17px Calibri;
+            text-align: center;
+            font-weight: bold;
+        }
+
+            .grid-footer a {
+                background-color: #ffffff;
+                color: blue;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                padding: 1px 10px 2px 10px;
+            }
+
+                .grid-footer a:active, a:hover {
+                    background-color: #ffffff;
+                    color: #FFAD33;
+                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                }
+
+        .alternatingRowStyle {
+            background-color: antiquewhite;
+        }
+
+        table .table1 {
+            text-align: left;
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 800px;
+        }
+
+        .tr, .td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "Books", FormMethod.Post))
         {
+@Html.AntiForgeryToken()
+
+
+                <table class="table1" align="center">
+                    <tr>
+                        <td>
+                            <div> Mã Sách</div>
+                        </td>
+                        <td>
+
+                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="maBook"
+                                   class="form-control" id="inputEmail3" placeholder="TimKiem" value="@ViewBag.maBook">
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Tên Sách</td>
+                        <td>
+
+                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="hoTen" class="form-control"
+                                   id="inputEmail3" placeholder="Tên Sách" value="@ViewBag.hoten">
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+
+
+
+                            <button type="submit" class="btn btn-success" style="width:100px; margin-left:5px">Tìm kiếm</button>
+                            <button type="button" class="btn btn-danger" style="width:100px;
+               " onclick="location.href='@Url.Action("Index", "Books/Index")'">
+                                Nhập mới
+                            </button>
+                        </td>
+                    </tr>
+                </table>}
+    </div>
+
+    <hr />
+    <p>
+        @Html.ActionLink("Tạo Sách Mới", "Create")
+    </p>
+    <div id="gridContent">
+        @ViewBag.TB
+        @grid.GetHtml(
+                                        tableStyle: "table table-sm table-bordered table-hover table-striped",
+                                        headerStyle: "thead-dark",
+                                        footerStyle: "grid-footer",
+                                        fillEmptyRows: true,
+                                        mode: WebGridPagerModes.Numeric,
+                                        alternatingRowStyle: "alternatingRowStyle",
+                                        columns: new[]  // colums in grid
+                                        {
+          grid.Column("STT",format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
             grid.Column("BookID","Mã Sách"),
             grid.Column("BookName","Tên Sách"),
             grid.Column("Price","Giá"  ),
@@ -30,22 +116,18 @@
             grid.Column("Quantity","Số lượng"),
             grid.Column("TotalSell","Đã bán"),
             grid.Column("CreateByDate","Ngày đăng",format:@<text> @item.CreateByDate.ToString("dd/MM/yyyy")</text>),
-            grid.Column("Thông tin", format: @<text>
-                @item.BookCover<br/>
-                @item.Pages trang
-            </text>),
-            grid.Column("Xuất bản", format: @<text>
-                @item.Publisher <br />
-                Ngày: @item.CreateByDate.ToString("dd/MM/yyyy") <br />
-            </text>),
+            grid.Column("Hình ảnh", format: @<text><img src="~/images/books/@item.Avatar" /></text>),
             grid.Column("Chức năng", format: @<text>
-            <a href="@Url.Action("Edit",
+                <a href="@Url.Action("Edit",
                         new { id = item.BookID})" class="edit-btn"><abbr title="Cập nhật dữ liệu"><img src="/images/edit.png" width="20" height="20" /></abbr></a>
-            <a href="@Url.Action("Details",
+                <a href="@Url.Action("Details",
                         new { id = item.BookID})" class="edit-btn"><abbr title="Xem chi tiết"><img src="/images/details.png" width="20" height="20" /></abbr></a>
-            <a href="@Url.Action("Delete",
+                <a href="@Url.Action("Delete",
                         new { id = item.BookID})" class="edit-btn"><abbr title="Xóa dữ liệu"><img src="/images/delete.png" width="20" height="20" /></abbr></a>
             </text>),
-        }
-    )
-</div>
+                                                                }
+                                                                                                                                    )
+    </div>
+</body>
+</html>
+

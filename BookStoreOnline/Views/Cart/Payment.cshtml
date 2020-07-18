@@ -1,0 +1,96 @@
+﻿@model List<BookStoreOnline.Models.CartItem>
+
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var customer = ViewData["Customer"] as Model.EF.Customer;
+    var payment = ViewData["Payment"] as Model.EF.Payment;
+
+    var total = 0;
+}
+
+@{
+    Html.RenderPartial("_Bradcaum");
+}
+
+@using (Html.BeginForm("Submit", "Cart", FormMethod.Post))
+{
+
+    <section class="wn__checkout__area section-padding--lg bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="customer_details">
+                        <h3>Thông tin hoá đơn</h3>
+                        <div class="customar__field">
+                            <div class="margin_between">
+                                <div class="input_box space_between">
+                                    <label>Tên khách hàng <span>*</span></label>
+                                    <input type="text" value="@customer.CustomerName">
+                                </div>
+                                <div class="input_box space_between">
+                                    <label>Số điện thoại <span>*</span></label>
+                                    <input type="text" value="@customer.PhoneNumber">
+                                </div>
+                            </div>
+                            <div class="input_box">
+                                <label>Email <span>*</span></label>
+                                <input type="text" value="@customer.Email">
+                            </div>
+                            <div class="input_box">
+                                <label>Địa chỉ <span>*</span></label>
+                                <input type="text" placeholder="Địa chỉ của bạn" name="address" value="@customer.CustomerAddress">
+                            </div>
+                            <div class="input_box">
+                                <label>Ghi chú </label>
+                                <input type="text" placeholder="thêm ghi chú" name="note">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 md-mt-40 sm-mt-40">
+                    <div class="wn__order__box">
+                        <h3 class="onder__title">Giỏ hàng của bạn</h3>
+                        <ul class="order__total">
+                            <li>Sách</li>
+                            <li>Tổng</li>
+                        </ul>
+                        <ul class="order_product">
+                            @foreach (var item in Model)
+                            {
+                                <li>
+                                    @item.book.BookName x @item.Quantity
+                                    @{
+                                        var price = item.book.Price * (100 - item.book.DiscountPercent) / 100;
+                                        var subtotal = price * item.Quantity;
+                                        total += subtotal;
+                                    }
+                                    <span>@(subtotal.ToString("N0")) VNĐ</span>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="shipping__method">
+                            <li>
+                                Giao hàng
+                                <ul>
+                                    @foreach (var type in ViewBag.Payment as List<Model.EF.Payment>)
+                                    {
+                                        <li>
+                                            <input name="payment" value="@type.PaymentID" checked="checked" type="radio">
+                                            <label>@type.PaymentName</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="total__amount">
+                            <li>Tổng tiền <span>@(total.ToString("N0")) VNĐ</span></li>
+                            <li class="text-center"><input type="submit" value="Đặt hàng"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

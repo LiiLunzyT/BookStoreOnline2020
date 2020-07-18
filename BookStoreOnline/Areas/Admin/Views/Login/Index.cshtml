@@ -27,8 +27,8 @@
                     <div class="panel-body">
                         @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                         {
-                            @Html.ValidationSummary(false, "", new { @class = "text-danger" });
                             <fieldset>
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Username)
                                     @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @autofocus = "autofocus" })

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.DAO;
+using PagedList;
 
 namespace BookStoreOnline.Controllers
 {
@@ -12,21 +13,28 @@ namespace BookStoreOnline.Controllers
     {
         // GET: Category
         [Route]
-        public ActionResult Index()
+        public ActionResult Index(int? page, String searchString = "")
         {
             var dao = new BookDAO();
-            ViewData["listBook"] = dao.listAll();
-            return View();
+            var books = dao.listByName(searchString);
+
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+
+            return View(books.ToPagedList(pageNumber, pageSize));
         }
 
         [Route("{Url?}")]
-        public ActionResult Index(String Url)
+        public ActionResult Index(String Url, int? page)
         {
-            var dao = new BookDAO();
             var cDao = new CategoryDAO();
             var category = cDao.getCategoryByUrl(Url);
-            ViewData["listBook"] = category.Books.ToList();
-            return View();
+            var books = category.Books.ToList();
+
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+
+            return View(books.ToPagedList(pageNumber, pageSize));
         }
 
         [ChildActionOnly]

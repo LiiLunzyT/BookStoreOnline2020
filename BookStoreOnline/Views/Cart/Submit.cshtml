@@ -1,0 +1,23 @@
+﻿@model Model.EF.Order
+
+@{
+    ViewBag.Title = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Html.RenderPartial("_Bradcaum");
+}
+
+<section class="wn__checkout__area section-padding--lg bg__white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-12 text-center">
+                <h3>Bạn đã đặt hàng thành công!!!</h3>
+                <h5>Đơn hàng(Mã số: @Model.OrderID) đang được chờ duyệt...</h5>
+                <a href="/">Trở về trang chủ</a>
+            </div>
+        </div>
+    </div>
+</section>
+

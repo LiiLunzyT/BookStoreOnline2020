@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-6 col-lg-2">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="/">
                         <img src="~/images/logo/logo.png" alt="logo images">
                     </a>
                 </div>
@@ -12,7 +12,7 @@
             <div class="col-lg-8 d-none d-lg-block">
                 <nav class="mainmenu__nav">
                     <ul class="meninmenu d-flex justify-content-start">
-                        <li class="drop with--one--item"><a href="">TRANG CHỦ</a></li>
+                        <li class="drop with--one--item"><a href="/">TRANG CHỦ</a></li>
 
                         <li class="drop">
                             <a href="/danh-muc">SÁCH</a>
@@ -25,7 +25,7 @@
                                         {
                                             if(category.CateGroupID == group.GroupID)
                                             {
-                                                <li><a href="shop-grid.html">@category.CategoryName</a></li>
+                                                <li><a href="/danh-muc/@category.Url">@category.CategoryName</a></li>
                                             }
                                         }
                                     </ul>
@@ -34,29 +34,17 @@
                         </li>
                         <li class="drop">
                             <a href="/danh-muc">TRẺ EM</a>
-                            <div class="megamenu mega02">
-                                <ul class="item item02">
+                            <div class="megamenu mega01">
+                                <ul class="item item01">
                                     <li class="title">YÊU THÍCH NHẤT</li>
-                                    <li><a href="shop-grid.html">American Girl</a></li>
-                                    <li><a href="shop-grid.html">Diary Wimpy Kid</a></li>
-                                    <li><a href="shop-grid.html">Finding Dory</a></li>
-                                    <li><a href="shop-grid.html">Harry Potter</a></li>
-                                    <li><a href="shop-grid.html">Land of Stories</a></li>
-                                </ul>
-                                <ul class="item item02">
-                                    <li class="title">DÀNH CHO TRẺ</li>
-                                    <li><a href="shop-grid.html">B&N Educators</a></li>
-                                    <li><a href="shop-grid.html">B&N Kids' Club</a></li>
-                                    <li><a href="shop-grid.html">Kids' Music</a></li>
-                                    <li><a href="shop-grid.html">Toys & Games</a></li>
-                                    <li><a href="shop-grid.html">Hoodies</a></li>
+                                    @foreach (var kid in ViewData["ForKid"] as List<Model.EF.Book>)
+                                    {
+                                        <li><a href="/chi-tiet/@kid.Url">@kid.BookName</a></li>
+                                    }
                                 </ul>
                             </div>
                         </li>
-
-                        <li><a href="/tin-tuc">TIN TỨC</a></li>
                         <li><a href="/danh-gia">REVIEW</a></li>
-                        <li><a href="/phan-hoi">PHẢN HỒI</a></li>
                     </ul>
                 </nav>
             </div>

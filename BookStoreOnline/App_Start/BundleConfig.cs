@@ -10,6 +10,7 @@ namespace BookStoreOnline
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/vendor/jquery-3.2.1.min.js",
+                        "~/Scripts/vendor/jquery-ui.js",
                         "~/Scripts/popper.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

@@ -1,9 +1,9 @@
-﻿
+﻿@model PagedList.IPagedList<Model.EF.Book>
+@using PagedList.Mvc;
+
 @{
     ViewBag.Title = "DANH MỤC";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    var listBook = ViewData["listBook"] as List<Model.EF.Book>;
 }
 
 @{
@@ -24,16 +24,18 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
-                            <p>Showing 1–12 of @listBook.Count results</p>
+                            @{ 
+                                var start = (Model.PageNumber - 1) * Model.PageSize + 1;
+                                var count = (Model.PageNumber - 1) * Model.PageSize + Model.Count;
+                            }
+                            <p>Hiển thị sách @(count == 0? 0 : start) - @(start + Model.Count - 1) trên tổng @count sách</p>
                             <div class="orderby__wrapper">
-                                <span>Sort By</span>
+                                <span>Sắp xếp theo</span>
                                 <select class="shot__byselect">
-                                    <option>Default sorting</option>
-                                    <option>HeadPhone</option>
-                                    <option>Furniture</option>
-                                    <option>Jewellery</option>
-                                    <option>Handmade</option>
-                                    <option>Kids</option>
+                                    <option>Mới nhất</option>
+                                    <option>Giá từ thấp đến cao</option>
+                                    <option>Giá từ cao đến thấp</option>
+                                    <option>Bán chạy</option>
                                 </select>
                             </div>
                         </div>
@@ -42,18 +44,17 @@
                 <div class="tab__container">
                     <div class="shop-grid tab-pane fade show active" id="nav-grid" role="tabpanel">
                         <div class="row">
-                            @foreach (var book in listBook)
+                            @foreach (var book in Model)
                             {
                                 Html.RenderAction("BookCard", "Book", new { enity = book });
                             }
                         </div>
-                        <ul class="wn__pagination">
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                        </ul>
+                        @Html.PagedListPager(Model,
+                            page => Url.Action("Index", new { page = page }),
+                            new PagedListRenderOptions {
+                                UlElementClasses = new string[] { "wn__pagination" },
+                                LiElementClasses = new string[] { "page-item" },
+                            })
                     </div>
                 </div>
             </div>
@@ -61,3 +62,6 @@
     </div>
 </div>
 
+@section scripts{
+    <script src="/assets/client/js/controller/bookController.js"></script>
+}

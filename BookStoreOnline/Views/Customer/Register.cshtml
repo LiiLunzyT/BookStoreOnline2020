@@ -1,30 +1,73 @@
-﻿
+﻿@model BookStoreOnline.Models.CustomerRegisterViewModel
+
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Đăng ký";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    Html.RenderPartial("_Bradcaum");
+}
 
-<section class="my_account_area pt--80 pb--55 bg--white">
+<section class="my_account_area row justify-content-center pt--50 pb--55 bg--white">
     <div class="container row justify-content-center">
-        <div class="my__account__wrapper col-6">
-            <h3 class="account__title">Register</h3>
-            <form action="#">
+        <div class="my__account__wrapper col-md-6">
+            <h3 class="account__title">@ViewBag.Title</h3>
+            @using (Html.BeginForm("SendRegister", "Customer", FormMethod.Post))
+            {
                 <div class="account__form">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="input__box">
-                        <label>Email address <span>*</span></label>
-                        <input type="email">
+                        @Html.LabelFor(model => model.Username)
+                        @Html.EditorFor(model => model.Username, new { @class = "form-control", @autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                     </div>
                     <div class="input__box">
-                        <label>Password<span>*</span></label>
-                        <input type="password">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.EditorFor(model => model.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form__btn">
-                        <button>Register</button>
+                    <div class="input__box">
+                        @Html.LabelFor(model => model.ConfirmPassword)
+                        @Html.EditorFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input__box">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input__box">
+                        @Html.LabelFor(model => model.CustomerName)
+                        @Html.EditorFor(model => model.CustomerName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input__box">
+                        @Html.LabelFor(model => model.Address)
+                        @Html.EditorFor(model => model.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Gender, new { @style = "margin-right: 20px" })
+                        Nam @Html.RadioButtonFor(model => model.Gender, false, new { @checked = "checked" })
+                        Nữ @Html.RadioButtonFor(model => model.Gender, true)
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input__box">
+                        @Html.LabelFor(model => model.Birth)
+                        @Html.EditorFor(model => model.Birth, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Birth, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input__box">
+                        @Html.LabelFor(model => model.PhoneNumber)
+                        @Html.EditorFor(model => model.PhoneNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form__btn row justify-content-center align-items-center">
+                        <button>Đăng ký</button>
                     </div>
                 </div>
-            </form>
+            }
         </div>
     </div>
 </section>
-

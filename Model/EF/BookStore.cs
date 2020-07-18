@@ -44,7 +44,7 @@ namespace Model.EF
             modelBuilder.Entity<Author>()
                 .HasMany(e => e.Books)
                 .WithRequired(e => e.Author)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Book>()
                 .Property(e => e.BookID)
@@ -73,12 +73,12 @@ namespace Model.EF
             modelBuilder.Entity<Book>()
                 .HasMany(e => e.OrderDetails)
                 .WithRequired(e => e.Book)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Book>()
                 .HasMany(e => e.Reviews)
                 .WithRequired(e => e.Book)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Book>()
                 .HasMany(e => e.Categories)
@@ -119,7 +119,7 @@ namespace Model.EF
                 .HasMany(e => e.Categories)
                 .WithRequired(e => e.CategoryGroup)
                 .HasForeignKey(e => e.CateGroupID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Customer>()
                 .Property(e => e.CustomerID)
@@ -140,12 +140,12 @@ namespace Model.EF
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.Orders)
                 .WithRequired(e => e.Customer)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.Reviews)
                 .WithRequired(e => e.Customer)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<News>()
                 .Property(e => e.NewsID)
@@ -170,11 +170,10 @@ namespace Model.EF
             modelBuilder.Entity<Order>()
                 .HasMany(e => e.OrderDetails)
                 .WithRequired(e => e.Order)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<OrderDetail>()
-                .Property(e => e.Price)
-                .HasPrecision(19, 4);
+                .Property(e => e.Price);
 
             modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.OrderID)
@@ -191,7 +190,7 @@ namespace Model.EF
             modelBuilder.Entity<Payment>()
                 .HasMany(e => e.Orders)
                 .WithRequired(e => e.Payment)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Producer>()
                 .Property(e => e.ProducerID)
@@ -220,7 +219,7 @@ namespace Model.EF
             modelBuilder.Entity<Producer>()
                 .HasMany(e => e.Books)
                 .WithRequired(e => e.Producer)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Reader>()
                 .Property(e => e.ReaderID)
@@ -253,7 +252,7 @@ namespace Model.EF
             modelBuilder.Entity<Role>()
                 .HasMany(e => e.Users)
                 .WithRequired(e => e.Role)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.UserID)
@@ -274,7 +273,7 @@ namespace Model.EF
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Customers)
                 .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
     }
 }

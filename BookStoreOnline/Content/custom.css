@@ -16,3 +16,41 @@
     color: #7d7d7d !important;
     text-decoration: line-through;
 }
+
+.ui-autocomplete {
+    width: 300px;
+    z-index: 2147483647;
+}
+.ui-menu-item {
+    padding: 5px;
+    text-align: left;
+}
+    .ui-menu-item a {
+        cursor: pointer;
+        border: none !important;
+        outline: none !important;
+        transition: 0;
+    }
+.ui-menu-item a:hover {
+    border: none !important;
+    outline: none !important;
+    background-color: transparent;
+}
+
+.minisearch .field__search .action button {
+    color: #fff;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    display: inline-block;
+    font-size: 26px;
+    height: 60px;
+    left: 0;
+    line-height: 60px;
+    text-align: center;
+    top: 0;
+    width: 60px;
+}

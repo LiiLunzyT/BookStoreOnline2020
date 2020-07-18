@@ -1,0 +1,23 @@
+﻿@model List<Model.EF.Book>
+
+<section class="wn__product__area brown--color pt--80  pb--30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section__title text-center">
+                    <h2 class="title__be--2">Sách <span class="color--theme">Mới</span></h2>
+                </div>
+            </div>
+        </div>
+        <!-- Start Single Tab Content -->
+        <div class="furniture--4 border--round arrows_style owl-carousel owl-theme row mt--50">
+
+            @foreach (var book in Model)
+            {
+                Html.RenderAction("BookCard", "Book", new { enity = book });
+            }
+
+        </div>
+        <!-- End Single Tab Content -->
+    </div>
+</section>

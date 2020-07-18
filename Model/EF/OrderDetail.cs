@@ -9,10 +9,9 @@ namespace Model.EF
     [Table("OrderDetail")]
     public partial class OrderDetail
     {
-        public int? Quantity { get; set; }
+        public int Quantity { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal Price { get; set; }
+        public int Price { get; set; }
 
         [Key]
         [Column(Order = 0)]

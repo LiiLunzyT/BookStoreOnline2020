@@ -18,10 +18,27 @@ namespace Model.DAO
 
         public User GetByUsername(String Username)
         {
-            return db.Users.SingleOrDefault(u => u.UserName == Username);
+            return db.Users.FirstOrDefault(u => u.UserName == Username);
         }
 
-        public Boolean Login(String UserName, String Password, bool isAdmin = false)
+        public String getNewID()
+        {
+            var countOfRows = db.Users.Count();
+            if (countOfRows == 0) return "US-001";
+            var lastRow = db.Users.OrderBy(c => 1 == 1).Skip(countOfRows - 1).FirstOrDefault();
+            String lastID = lastRow.UserID;
+            int id = int.Parse(lastID.Split('-')[1]);
+            String str = "" + (id + 1);
+
+            return "US-" + str.PadLeft(3, '0');
+        }
+        public void Insert(User user)
+        {
+            db.Users.Add(user);
+            db.SaveChangesAsync();
+        }
+
+        public Boolean Login(String UserName, String Password, bool isUser = false)
         {
             var result = db.Users.SingleOrDefault(u => u.UserName == UserName);
             if(result == null)
@@ -29,9 +46,9 @@ namespace Model.DAO
                 return false;
             } else
             {
-                if(isAdmin == true)
+                if(isUser == true)
                 {
-                    if(result.Password == Password)
+                    if(result.Password == Password && result.Role.RoleName != "Khách hàng")
                     {
                         return true;
                     } else
@@ -40,7 +57,7 @@ namespace Model.DAO
                     }
                 } else
                 {
-                    if(result.Password == Password)
+                    if(result.Password == Password && result.Role.RoleName == "Khách hàng")
                     {
                         return true;
                     } else

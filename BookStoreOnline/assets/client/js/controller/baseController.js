@@ -3,34 +3,35 @@
         common.registerEvent();
     },
     registerEvent: function () {
-        $("#txtKeyword").autocomplete({
-            minLength: 0,
-            source: function( request, response ) {
+        $(".txtSearch").autocomplete({
+            minLength: 1,
+            source: function (request, response) {
                 $.ajax({
-                    url: "/Product/ListName",
+                    url: "/Book/ListName",
                     dataType: "json",
                     data: {
                         q: request.term
                     },
-                    success: function( res ) {
+                    success: function (res) {
+                        console.log(res.data)
                         response(res.data);
                     }
                 });
             },
+            appendTo: "#search_mini_form",
             focus: function (event, ui) {
-                $("#txtKeyword").val(ui.item.label);
-                return false;
+                $(".txtSearch").val(ui.item.label);
+                return true;
             },
             select: function (event, ui) {
-                $("#txtKeyword").val(ui.item.label);
-                return false;
+                $(".txtSearch").val(ui.item.label);
+                return true;
             }
-        })
-     .autocomplete("instance")._renderItem = function (ul, item) {
-         return $("<li>")
-           .append("<a>" + item.label + "</a>")
-           .appendTo(ul);
-     };
+        }).autocomplete("instance")._renderItem = function (ul, item) {
+            return $('<li>')
+                .append("<a>" + item.label + "</a>")
+                .appendTo(ul);
+        };
     }
 }
 common.init();

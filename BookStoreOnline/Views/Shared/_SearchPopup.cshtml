@@ -1,13 +1,14 @@
 ﻿<div class="brown--color box-search-content search_active block-bg close__top">
-    <form id="search_mini_form" class="minisearch" action="#">
+    @using (Html.BeginForm("Index", "Category", FormMethod.Get, new { @id = "search_mini_form", @class = "minisearch" }))
+    {
         <div class="field__search">
-            <input type="text" placeholder="Search entire store here...">
+            <input class="txtSearch" name="searchString" type="text" placeholder="Tìm kiếm sách của bạn ngay tại đây" autocomplete="on">
             <div class="action">
-                <a href="#"><i class="zmdi zmdi-search"></i></a>
+                <button type="submit"><i class="zmdi zmdi-search"></i></button>
             </div>
         </div>
-    </form>
+    }
     <div class="close__wrap">
-        <span>close</span>
+        <span>Đóng</span>
     </div>
 </div>

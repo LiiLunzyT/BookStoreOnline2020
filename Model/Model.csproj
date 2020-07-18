@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="DAO\BookDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\CustomerDAO.cs" />
+    <Compile Include="DAO\OrderDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="EF\Author.cs" />
     <Compile Include="EF\Book.cs" />

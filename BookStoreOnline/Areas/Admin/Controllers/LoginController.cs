@@ -24,7 +24,7 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDAO();
-                var result = dao.Login(model.Username, model.Password);
+                var result = dao.Login(model.Username, model.Password, true);
                 if (result)
                 {
                     var user = dao.GetByUsername(model.Username);

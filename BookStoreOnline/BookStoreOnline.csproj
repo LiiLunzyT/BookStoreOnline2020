@@ -48,6 +48,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -183,6 +189,7 @@
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\CustomerLogin.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
@@ -195,6 +202,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CustomerViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -1691,6 +1699,7 @@
     <Content Include="assets\client\images\wishlist.png" />
     <Content Include="assets\client\js\bootstrap.min.js" />
     <Content Include="assets\client\js\controller\baseController.js" />
+    <Content Include="assets\client\js\controller\bookController.js" />
     <Content Include="assets\client\js\controller\cartController.js" />
     <Content Include="assets\client\js\controller\contactController.js" />
     <Content Include="assets\client\js\controller\userController.js" />
@@ -1707,7 +1716,13 @@
     <Content Include="assets\client\js\startstop-slider.js" />
     <Content Include="assets\client\template\neworder.html" />
     <Content Include="Content\customAdmin.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\styleAdmin.css" />
+    <Content Include="fonts\bicon.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Simple-Line-Icons.svg" />
+    <Content Include="fonts\slick.svg" />
     <Content Include="images\about\big-img\1.jpg" />
     <Content Include="images\about\big-img\2.jpg" />
     <Content Include="images\about\team\1.jpg" />
@@ -1726,7 +1741,6 @@
     <Content Include="images\best-sell-product\7.jpg" />
     <Content Include="images\best-sell-product\8.jpg" />
     <Content Include="images\bg\1.jpg" />
-    <Content Include="images\bg\2.jpg" />
     <Content Include="images\bg\3.jpg" />
     <Content Include="images\bg\4.jpg" />
     <Content Include="images\bg\5.jpg" />
@@ -1734,6 +1748,7 @@
     <Content Include="images\bg\7.jpg" />
     <Content Include="images\bg\8.jpg" />
     <Content Include="images\bg\9.jpg" />
+    <Content Include="images\bg\2.jpg" />
     <Content Include="images\blog\big-img\1.jpg" />
     <Content Include="images\blog\blog-3\1.jpg" />
     <Content Include="images\blog\blog-3\2.jpg" />
@@ -1916,6 +1931,7 @@
     <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Scripts\active.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\vendor\jquery-ui.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\vendor\jquery-3.2.1.min.js" />
@@ -1953,9 +1969,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Banner.cshtml" />
-    <Content Include="Views\Shared\_BestSeller.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Shared\_NewBooks.cshtml" />
+    <Content Include="Views\Home\NewBooks.cshtml" />
     <Content Include="Views\Shared\_SearchPopup.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
   </ItemGroup>
@@ -1963,7 +1978,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
@@ -2366,16 +2380,42 @@
     <Content Include="assets\client\scss\_stacked.scss" />
     <Content Include="assets\client\scss\_variables.scss" />
     <Content Include="Areas\Admin\Views\Shared\_Navigation.cshtml" />
+    <Content Include="fonts\bicon.eot" />
+    <Content Include="fonts\bicon.ttf" />
+    <Content Include="fonts\bicon.woff" />
+    <Content Include="fonts\fontawesome-webfont-1.eot" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\Material-Design-Iconic-Font.woff2" />
+    <Content Include="fonts\Simple-Line-Icons.eot" />
+    <Content Include="fonts\Simple-Line-Icons.ttf" />
+    <Content Include="fonts\Simple-Line-Icons.woff" />
+    <Content Include="fonts\Simple-Line-Icons.woff2" />
+    <Content Include="fonts\slick-1.eot" />
+    <Content Include="fonts\slick.eot" />
+    <Content Include="fonts\slick.ttf" />
+    <Content Include="fonts\slick.woff" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\CartFloat.cshtml" />
     <Content Include="Views\Shared\AccountFloat.cshtml" />
-    <Content Include="Views\Customer\Login.cshtml" />
-    <Content Include="Views\Customer\Register.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\CategorySideBar.cshtml" />
-    <Content Include="Views\Book\BookCard.cshtml" />
+    <Content Include="Views\Shared\BookCard.cshtml" />
     <Content Include="Views\Book\Detail.cshtml" />
     <Content Include="Views\Shared\_Bradcaum.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\_CartPartial.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Login.cshtml" />
+    <Content Include="Views\Customer\Register.cshtml" />
+    <Content Include="Views\Cart\Payment.cshtml" />
+    <Content Include="Views\Cart\Submit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

@@ -1,5 +1,11 @@
 ﻿
 @{
+    var userSS = Session["USER_SESSION"];
+    var user = (BookStoreOnline.Common.UserLogin)userSS;
+
+ }
+
+@{
     ViewBag.Title = "Home";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -13,6 +19,7 @@
 </head>
 <body>
     <div> 
+        <h1>@user.UserName</h1>
     </div>
 </body>
 </html>
