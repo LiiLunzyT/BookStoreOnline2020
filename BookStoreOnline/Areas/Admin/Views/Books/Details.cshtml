@@ -1,139 +1,146 @@
 ﻿@model Model.EF.Book
 
-@{ ViewBag.Title = "Delete";
-                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
-<h3>BẠN CÓ MUỐN XÓA CUỐN SÁCH NÀY ?</h3>
+@{
+    ViewBag.Title = "CHI TIẾT SÁCH";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h3>@ViewBag.Title</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.AuthorName)
-        </dt>
+    <div class="row" style="font-size: 2rem">
+        <div class="col-md-4">
+            <div style="width: 100%">
+                <img style="width: 100%;" src="~/images/books/@Model.Avatar" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <dl class="horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Author.AuthorName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Author.AuthorName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.AuthorName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Producer.ProducerName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Producer.ProducerName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Producer.ProducerName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Producer.ProducerName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BookName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BookName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BookName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookName)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DiscountPercent)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DiscountPercent)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DiscountPercent)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.DiscountPercent)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Quantity)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalSell)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TotalSell)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TotalSell)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.TotalSell)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <dl class="horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateByDate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreateByDate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Avatar)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Url)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateByDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Url)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreateByDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Publisher)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Url)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublicByDate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PublicByDate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Publisher)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BookCover)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PublicByDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BookCover)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PublicByDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Pages)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BookCover)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Pages)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookCover)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BookDescription)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pages)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BookDescription)
+                </dd>
+            </dl>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pages)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookDescription)
-        </dd>
-
-    </dl>
+    <hr />
 
     @using (Html.BeginForm())
     {
-@Html.AntiForgeryToken()
-
-                <div class="form-actions no-color">
-                    <input type="submit" value="Xóa Sách" class="btn btn-default" /> |
-                    @Html.ActionLink("Trở Về", "Index")
-                </div>}
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xoá sách này?" class="btn btn-default" /> |
+            @Html.ActionLink("Trở Về", "Index")
+        </div>
+    }
 </div>

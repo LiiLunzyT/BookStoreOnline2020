@@ -1,0 +1,31 @@
+﻿@model Model.EF.Order
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    
+
+    var grid = new WebGrid(source: Model.OrderDetails, rowsPerPage: 5);
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div id="gridContent">
+    @ViewBag.TB
+    @grid.GetHtml(
+        tableStyle: "table table-sm table-bordered table-hover table-striped",
+        headerStyle: "thead-dark",
+        footerStyle: "grid-footer",
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.Numeric,
+        alternatingRowStyle: "alternatingRowStyle",
+        columns: new[]
+        {
+            grid.Column("STT",format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
+            grid.Column("Book.BookID","Mã Đơn Hàng"),
+            grid.Column("Book.BookName","Mã Khách Hàng")
+        }
+    )
+</div>

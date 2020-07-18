@@ -18,6 +18,12 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session["USER_SESSION"] = null;
+            return RedirectToAction("Index", "Login");
+        }
+
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {

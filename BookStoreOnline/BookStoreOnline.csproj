@@ -176,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApprovalOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthorsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\BooksController.cs" />
@@ -1744,12 +1745,8 @@
     <Content Include="images\bg\1.jpg" />
     <Content Include="images\bg\3.jpg" />
     <Content Include="images\bg\4.jpg" />
-    <Content Include="images\bg\5.jpg" />
-    <Content Include="images\bg\6.jpg" />
-    <Content Include="images\bg\7.jpg" />
-    <Content Include="images\bg\8.jpg" />
-    <Content Include="images\bg\9.jpg" />
     <Content Include="images\bg\2.jpg" />
+    <Content Include="images\bg\admin_bg.jpg" />
     <Content Include="images\blog\big-img\1.jpg" />
     <Content Include="images\blog\blog-3\1.jpg" />
     <Content Include="images\blog\blog-3\2.jpg" />
@@ -1762,23 +1759,6 @@
     <Content Include="images\blog\sm-img\3.jpg" />
     <Content Include="images\blog\sm-img\4.jpg" />
     <Content Include="images\blog\sm-img\5.jpg" />
-    <Content Include="images\books\1.jpg" />
-    <Content Include="images\books\10.jpg" />
-    <Content Include="images\books\11.jpg" />
-    <Content Include="images\books\12.jpg" />
-    <Content Include="images\books\2.jpg" />
-    <Content Include="images\books\3.jpg" />
-    <Content Include="images\books\4.jpg" />
-    <Content Include="images\books\5.jpg" />
-    <Content Include="images\books\6.jpg" />
-    <Content Include="images\books\7.jpg" />
-    <Content Include="images\books\8.jpg" />
-    <Content Include="images\books\9.jpg" />
-    <Content Include="images\books\BK-00007.jpg" />
-    <Content Include="images\books\BK-00005.jpg" />
-    <Content Include="images\books\BK-00003.jpg" />
-    <Content Include="images\books\BK-00002.jpg" />
-    <Content Include="images\books\BK-00001.jpg" />
     <Content Include="images\brand\1.png" />
     <Content Include="images\brand\2.png" />
     <Content Include="images\brand\3.png" />
@@ -1984,6 +1964,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
+    <Folder Include="images\books\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
@@ -2409,6 +2390,8 @@
     <Content Include="fonts\slick.woff" />
     <Content Include="Areas\Admin\Views\GioiThieu\GioiThieu_ThongTin.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\ApprovalOrder\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApprovalOrder\Details.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\CartFloat.cshtml" />
     <Content Include="Views\Shared\AccountFloat.cshtml" />

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BookStoreOnline.Areas.Admin.Controllers
 {
-    public class GioiThieuController : Controller
+    public class GioiThieuController : BaseController
     {
         // GET: Admin/GioiThieu
         public ActionResult GioiThieu_ThongTin()

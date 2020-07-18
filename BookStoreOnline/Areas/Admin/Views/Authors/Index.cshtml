@@ -1,11 +1,16 @@
 ﻿@model IEnumerable<Model.EF.Author>
 
-@{ ViewBag.Title = "Index";
+@{
+    ViewBag.Title = "Quản lý tác giả";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     var grid = new WebGrid(source: Model, rowsPerPage: 4);
-@Scripts.Render("~/Scripts/jquery-1.6.2.min.js") }
+}
 
-<h2 style="text-align:center">QUẢN LÝ TÁC GIẢ</h2>
+@{ 
+    @Scripts.Render("~/Scripts/jquery-1.6.2.min.js")
+}
+
+<h2 style="text-align:center">@ViewBag.Title</h2>
 
 <html>
 <head>

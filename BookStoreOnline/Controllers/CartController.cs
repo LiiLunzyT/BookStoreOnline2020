@@ -203,6 +203,7 @@ namespace BookStoreOnline.Controllers
             nOrder.PaymentID = payment;
 
             var listDetail = new List<OrderDetail>();
+            int total = 0;
             foreach(var item in list)
             {
                 var nOD = new OrderDetail();
@@ -211,7 +212,9 @@ namespace BookStoreOnline.Controllers
                 nOD.BookID = item.book.BookID;
                 nOD.OrderID = nOrder.OrderID;
                 listDetail.Add(nOD);
+                total += nOD.Price * nOD.Quantity;
             }
+            nOrder.Total = total;
 
             if(dao.NewOrder(nOrder, listDetail))
             {

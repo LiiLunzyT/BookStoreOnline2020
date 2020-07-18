@@ -10,7 +10,7 @@ using Model.EF;
 
 namespace BookStoreOnline.Areas.Admin.Controllers
 {
-    public class BooksController : Controller
+    public class BooksController : BaseController
     {
         private BookStore db = new BookStore();
 
@@ -25,10 +25,6 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Index(string ma, string ten)
         {
-
-            //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
-            /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
-
             var books = db.Books.Where(abc => abc.BookID.Equals(ma) || ( ma.Equals("") && (abc.BookName).Contains(ten)));
 
             return View(books.ToList());

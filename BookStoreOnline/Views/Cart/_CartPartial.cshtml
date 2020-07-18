@@ -1,7 +1,11 @@
 ﻿@{
+    var list = new List<BookStoreOnline.Models.CartItem>();
     var sessionCart = (List<BookStoreOnline.Models.CartItem>)Session["CartSession"];
-    var list = (List<BookStoreOnline.Models.CartItem>)sessionCart;
 
+    if(sessionCart != null)
+    {
+        list = (List<BookStoreOnline.Models.CartItem>)sessionCart;
+    }
     var total = 0;
 }
 

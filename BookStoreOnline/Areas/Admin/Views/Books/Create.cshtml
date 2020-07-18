@@ -1,11 +1,11 @@
 ﻿@model Model.EF.Book
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thêm sách";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2 style="text-align:center">THÊM SÁCH VÀO DỮ LIỆU</h2>
+<h2 style="text-align:center">@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -70,7 +70,6 @@
 
                 <div class="col-md-9">
                     <input type="file" style="height:30px;" name="Avatar" accept="image/*" required />
-                    @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
                 </div>
             </div>
 

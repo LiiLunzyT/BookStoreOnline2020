@@ -41,6 +41,9 @@
         [Column(TypeName = "text")]
         public string Notes { get; set; }
 
+        [DisplayName("Tổng tiền")]
+        public int Total { get; set; }
+
         [Required(ErrorMessage = "Chưa Chọn Mã Khách Hàng")]
         [DisplayName("Mã Khách Hàng")]
         [StringLength(10)]

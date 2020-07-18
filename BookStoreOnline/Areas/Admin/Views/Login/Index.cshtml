@@ -13,6 +13,19 @@
     <style>
         body {
             padding: 50px;
+            background-image: url("../../../../images/bg/admin_bg.jpg");
+            background-position: center center;
+        }
+        fieldset {
+            border: 3px solid #c0c0c0 !important;
+            padding: 10px 30px;
+        }
+        label {
+            font-size: 1.2rem;
+        }
+
+        input {
+            background-color: rgba(255,255,255, 0.5) !important;
         }
     </style>
 </head>
@@ -22,7 +35,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">ĐĂNG NHẬP</h3>
+                        <h2 class="panel-title text-center">ĐĂNG NHẬP</h2>
                     </div>
                     <div class="panel-body">
                         @using (Html.BeginForm("Login", "Login", FormMethod.Post))
@@ -38,7 +51,7 @@
                                     @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">Đăng nhập</button>
                             </fieldset>
                         }
                     </div>

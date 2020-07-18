@@ -10,7 +10,7 @@ using Model.EF;
 
 namespace BookStoreOnline.Areas.Admin.Controllers
 {
-    public class ProducersController : Controller
+    public class ProducersController : BaseController
     {
         private BookStore db = new BookStore();
 
