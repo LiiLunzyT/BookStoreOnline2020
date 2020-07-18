@@ -3,11 +3,12 @@
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var gt = "";
 }
 
-<h2>Delete</h2>
+<h2 style="text-align:center">XÓA KHÁCH HÀNG</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn Có Chắc Chắn Muốn Xóa Khách Hàng Này ?</h3>
 <div>
     <h4>Customer</h4>
     <hr />
@@ -41,7 +42,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Gender)
+            @{if (Model.Gender == true)
+                { gt = "Nam"; }
+                else
+                { gt = "Nữ"; }
+            }
+            @gt
         </dd>
 
         <dt>

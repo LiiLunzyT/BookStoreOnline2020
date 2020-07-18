@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Create</h2>
+<h2 style="text-align:center">THÊM SÁCH VÀO DỮ LIỆU</h2>
 
 
 @using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -132,7 +132,7 @@
             </div>
 
             <div class="form-group row">
-                @Html.LabelFor(model => model.AuthorID, "AuthorID", htmlAttributes: new { @class = "col-form-label col-md-3" })
+                @Html.LabelFor(model => model.AuthorID, "Tác Giả", htmlAttributes: new { @class = "col-form-label col-md-3" })
                 <div class="col-md-9">
                     @Html.DropDownList("AuthorID", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.AuthorID, "", new { @class = "text-danger" })
@@ -140,7 +140,7 @@
             </div>
 
             <div class="form-group row">
-                @Html.LabelFor(model => model.ProducerID, "ProducerID", htmlAttributes: new { @class = "col-form-label col-md-3" })
+                @Html.LabelFor(model => model.ProducerID, "Nhà Phát Hành", htmlAttributes: new { @class = "col-form-label col-md-3" })
                 <div class="col-md-9">
                     @Html.DropDownList("ProducerID", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ProducerID, "", new { @class = "text-danger" })
@@ -149,13 +149,13 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="Thêm" class="btn btn-primary" />
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Trở Về", "Index")
 </div>
 
 @section Scripts {

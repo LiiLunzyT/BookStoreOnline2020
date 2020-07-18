@@ -20,6 +20,19 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             return View(db.Producers.ToList());
         }
 
+
+        [HttpPost]
+        public ActionResult Index(string id, string tennxb)
+        {
+
+            //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
+            /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
+
+            var producers = db.Producers.Where(abc => abc.ProducerID.Contains(id) && (abc.ProducerName).Contains(tennxb));
+            return View(producers.ToList());
+        }
+
+
         // GET: Admin/Producers/Details/5
         public ActionResult Details(string id)
         {
@@ -38,7 +51,9 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         // GET: Admin/Producers/Create
         public ActionResult Create()
         {
-            return View();
+            Producer producer = new Producer();
+            producer.ProducerID = getNewID();
+            return View(producer);
         }
 
         // POST: Admin/Producers/Create
@@ -122,6 +137,18 @@ namespace BookStoreOnline.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public String getNewID()
+        {
+            var countOfRows = db.Producers.Count();
+            if (countOfRows == 0) return "PD-001";
+            var lastRow = db.Producers.OrderBy(c => 1 == 1).Skip(countOfRows - 1).FirstOrDefault();
+            String lastID = lastRow.ProducerID;
+            int id = int.Parse(lastID.Split('-')[1]);
+            String str = "" + (id + 1);
+
+            return "PD-" + str.PadLeft(3, '0');
         }
     }
 }

@@ -3,7 +3,7 @@
 <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
     <div class="product__thumb">
         <a class="first__img" href="/chi-tiet/@Model.Url">
-            <img src="~/images/books/1.jpg" alt="product image">
+            <img src='~/images/books/@(Model.BookID + ".jpg" )' alt="product image">
         </a>
         <div class="hot__box">
             <span class="hot-label"> - @Model.DiscountPercent %</span>

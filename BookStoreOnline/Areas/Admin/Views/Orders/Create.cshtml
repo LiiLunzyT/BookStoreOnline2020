@@ -5,14 +5,13 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Create</h2>
+<h2 style="text-align:center">TẠO MỚI ĐƠN HÀNG</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Order</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -56,7 +55,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CustomerID, "CustomerID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CustomerID, "Địa Chỉ Giao Hàng", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
@@ -64,7 +63,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PaymentID, "PaymentID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PaymentID, "Phương Thức Thanh Toán", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PaymentID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PaymentID, "", new { @class = "text-danger" })
@@ -73,12 +72,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Tạo" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Trở Về", "Index")
 </div>

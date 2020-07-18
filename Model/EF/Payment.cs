@@ -1,7 +1,8 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -16,9 +17,11 @@ namespace Model.EF
         }
 
         [StringLength(10)]
+        [DisplayName("Mã Thanh Toán")]
         public string PaymentID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Chưa Nhập Loại Thanh Toán")]
+        [DisplayName("Loại Thanh Toán")]
         [StringLength(100)]
         public string PaymentName { get; set; }
 

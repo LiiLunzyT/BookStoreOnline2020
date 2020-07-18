@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace BookStoreOnline.Areas.Admin.Controllers
 {
-    public class HomeController : BaseController
+    public class GioiThieuController : Controller
     {
-        // GET: Admin/Home
-        public ActionResult Index()
+        // GET: Admin/GioiThieu
+        public ActionResult GioiThieu_ThongTin()
         {
             return View();
         }

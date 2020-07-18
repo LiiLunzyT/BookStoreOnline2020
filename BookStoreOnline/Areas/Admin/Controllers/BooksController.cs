@@ -16,8 +16,6 @@ namespace BookStoreOnline.Areas.Admin.Controllers
 
         // GET: Admin/Books
 
-
-
         public ActionResult Index()
         {
             var books = db.Books.Include(n => n.Author);
@@ -25,13 +23,13 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string maBook, string hoten)
+        public ActionResult Index(string ma, string ten)
         {
 
             //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
             /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
 
-            var books = db.Books.Where(abc => abc.BookID.Contains(maBook) && (abc.BookName).Contains(hoten));
+            var books = db.Books.Where(abc => abc.BookID.Equals(ma) || ( ma.Equals("") && (abc.BookName).Contains(ten)));
 
             return View(books.ToList());
         }
@@ -70,9 +68,9 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         {
             var imgNV = Request.Files["Avatar"];
             //Lấy thông tin từ input type=file có tên Avatar
-            string postedFileName = System.IO.Path.GetFileName(imgNV.FileName);
+            string postedFileName = Request.Form["BookID"] + ".jpg";
             //Lưu hình đại diện về Server
-            var path = Server.MapPath("/Images/" + postedFileName);
+            var path = Server.MapPath("/images/books/" + postedFileName);
             imgNV.SaveAs(path);
 
 
@@ -104,6 +102,7 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             }
             ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", book.AuthorID);
             ViewBag.ProducerID = new SelectList(db.Producers, "ProducerID", "ProducerName", book.ProducerID);
+            ViewBag.Category = db.Categories.ToList();
             return View(book);
         }
 
@@ -117,11 +116,10 @@ namespace BookStoreOnline.Areas.Admin.Controllers
 
             var imgNV = Request.Files["Avatar"];
             //Lấy thông tin từ input type=file có tên Avatar
-            string postedFileName = System.IO.Path.GetFileName(imgNV.FileName);
+            string postedFileName = Request.Form["BookID"] + ".jpg";
             //Lưu hình đại diện về Server
-            var path = Server.MapPath("/Images/" + postedFileName);
+            var path = Server.MapPath("/images/books/" + postedFileName);
             imgNV.SaveAs(path);
-
 
             if (ModelState.IsValid)
             {

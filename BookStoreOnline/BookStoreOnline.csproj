@@ -181,6 +181,7 @@
     <Compile Include="Areas\Admin\Controllers\BooksController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GioiThieuController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
@@ -1773,6 +1774,11 @@
     <Content Include="images\books\7.jpg" />
     <Content Include="images\books\8.jpg" />
     <Content Include="images\books\9.jpg" />
+    <Content Include="images\books\BK-00007.jpg" />
+    <Content Include="images\books\BK-00005.jpg" />
+    <Content Include="images\books\BK-00003.jpg" />
+    <Content Include="images\books\BK-00002.jpg" />
+    <Content Include="images\books\BK-00001.jpg" />
     <Content Include="images\brand\1.png" />
     <Content Include="images\brand\2.png" />
     <Content Include="images\brand\3.png" />
@@ -1881,9 +1887,9 @@
     <Content Include="images\product\8.jpg" />
     <Content Include="images\product\9.jpg" />
     <Content Include="images\product\big-img\1.jpg" />
-    <Content Include="images\product\sm-3\1.jpg" />
     <Content Include="images\product\sm-3\2.jpg" />
     <Content Include="images\product\sm-3\3.jpg" />
+    <Content Include="images\product\sm-3\1.jpg" />
     <Content Include="images\product\sm-img\1.jpg" />
     <Content Include="images\product\sm-img\2.jpg" />
     <Content Include="images\product\sm-img\3.jpg" />
@@ -2401,6 +2407,8 @@
     <Content Include="fonts\slick.eot" />
     <Content Include="fonts\slick.ttf" />
     <Content Include="fonts\slick.woff" />
+    <Content Include="Areas\Admin\Views\GioiThieu\GioiThieu_ThongTin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\CartFloat.cshtml" />
     <Content Include="Views\Shared\AccountFloat.cshtml" />

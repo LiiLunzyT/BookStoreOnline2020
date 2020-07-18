@@ -23,7 +23,7 @@
         public string CategoryID { get; set; }
 
         [Required(ErrorMessage = "Tên không hợp lệ")]
-        [DisplayName("Mã")]
+        [DisplayName("Tên Thể Loại")]
         [StringLength(100)]
         public string CategoryName { get; set; }
 

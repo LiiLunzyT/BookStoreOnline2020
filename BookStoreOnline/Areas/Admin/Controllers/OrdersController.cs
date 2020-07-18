@@ -21,6 +21,39 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             return View(orders.ToList());
         }
 
+        [HttpPost]
+        public ActionResult Index(string id, string trangthai, string dateMin = "", string dateMax = "")
+        {
+            DateTime min, max;
+
+            if (dateMin == "")
+            {
+                min = DateTime.Now;
+                ViewBag.dateMin = "";
+                
+            }
+            else
+            {
+                ViewBag.dateMin = dateMin;
+                min = DateTime.Parse(dateMin);
+            }
+            if (dateMax == "")
+            {
+                max = DateTime.MaxValue;
+                ViewBag.dateMax = "";// Int32.MaxValue.ToString(); 
+            }
+            else
+            {
+                ViewBag.dateMax = dateMax;
+                max = DateTime.Parse(dateMax);
+            }
+
+
+            
+            var orders = db.Orders.Where(abc => abc.OrderID.Contains(id) && (abc.Status).Contains(trangthai) && (abc.OrderByDate >= min && abc.OrderByDate <= max));
+            return View(orders.ToList());
+        }
+
         // GET: Admin/Orders/Details/5
         public ActionResult Details(string id)
         {
@@ -39,9 +72,11 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         // GET: Admin/Orders/Create
         public ActionResult Create()
         {
+            Order order = new Order();
+            order.OrderID = getNewID();
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "CustomerAddress");
             ViewBag.PaymentID = new SelectList(db.Payments, "PaymentID", "PaymentName");
-            return View();
+            return View(order);
         }
 
         // POST: Admin/Orders/Create
@@ -131,6 +166,18 @@ namespace BookStoreOnline.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public String getNewID()
+        {
+            var countOfRows = db.Orders.Count();
+            if (countOfRows == 0) return "OD-000001";
+            var lastRow = db.Orders.OrderBy(c => 1 == 1).Skip(countOfRows - 1).FirstOrDefault();
+            String lastID = lastRow.OrderID;
+            int id = int.Parse(lastID.Split('-')[1]);
+            String str = "" + (id + 1);
+
+            return "OD-" + str.PadLeft(6, '0');
         }
     }
 }

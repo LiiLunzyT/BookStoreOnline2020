@@ -1,7 +1,8 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,14 +19,18 @@ namespace Model.EF
         [StringLength(10)]
         public string UserID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Chưa Nhập Tài Khoản")]
+        [DisplayName("Tài Khoản")]
         [StringLength(28)]
         public string UserName { get; set; }
 
-        [Required]
-        [StringLength(28)]
+        [Required(ErrorMessage = "Chưa Nhập Mật Khẩu")]
+        [DisplayName("Mật Khẩu")]
+        [StringLength(28, ErrorMessage = "Mật khẩu ít nhất 6-28 ký tự", MinimumLength = 6)]
         public string Password { get; set; }
 
+
+        [DisplayName("Ngày Tạo")]
         [Column(TypeName = "date")]
         public DateTime? CreatedByDate { get; set; }
 

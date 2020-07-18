@@ -7,8 +7,6 @@
 
 <h2 style="text-align:center">QUẢN LÝ SÁCH</h2>
 
-
-
 <html>
 <head>
     <style type="text/css">
@@ -46,6 +44,13 @@
         .tr, .td {
             text-align: left;
         }
+
+        .img-container {
+            width: 100px;
+        }
+        .img-container img {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -62,8 +67,8 @@
                         </td>
                         <td>
 
-                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="maBook"
-                                   class="form-control" id="inputEmail3" placeholder="TimKiem" value="@ViewBag.maBook">
+                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="ma"
+                                   class="form-control" id="inputEmail3" placeholder="TimKiem" value="@ViewBag.ma">
                         </td>
 
                     </tr>
@@ -71,8 +76,8 @@
                         <td>Tên Sách</td>
                         <td>
 
-                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="hoTen" class="form-control"
-                                   id="inputEmail3" placeholder="Tên Sách" value="@ViewBag.hoten">
+                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="ten" class="form-control"
+                                   id="inputEmail3" placeholder="Tên Sách" value="@ViewBag.ten">
                         </td>
 
                     </tr>
@@ -116,7 +121,7 @@
             grid.Column("Quantity","Số lượng"),
             grid.Column("TotalSell","Đã bán"),
             grid.Column("CreateByDate","Ngày đăng",format:@<text> @item.CreateByDate.ToString("dd/MM/yyyy")</text>),
-            grid.Column("Hình ảnh", format: @<text><img src="~/images/books/@item.Avatar" /></text>),
+            grid.Column("Hình ảnh", format: @<text><div class="img-container"><img src="~/images/books/@item.Avatar" /></div></text>),
             grid.Column("Chức năng", format: @<text>
                 <a href="@Url.Action("Edit",
                         new { id = item.BookID})" class="edit-btn"><abbr title="Cập nhật dữ liệu"><img src="/images/edit.png" width="20" height="20" /></abbr></a>

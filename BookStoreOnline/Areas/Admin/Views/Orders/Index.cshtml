@@ -1,64 +1,142 @@
 ﻿@model IEnumerable<Model.EF.Order>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
+@{ ViewBag.Title = "Index";
+                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+                var grid = new WebGrid(source: Model, rowsPerPage: 5);
+    @Scripts.Render("~/Scripts/jquery-1.6.2.min.js") }
 
-<h2>Index</h2>
+<h2 style="text-align:center">QUẢN LÍ ĐƠN HÀNG</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer.CustomerAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Payment.PaymentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderByDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.CustomerAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Payment.PaymentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderByDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })
-        </td>
-    </tr>
-}
 
-</table>
+<html>
+<head>
+    <style type="text/css">
+        .grid-footer {
+            color: #000;
+            font: 17px Calibri;
+            text-align: center;
+            font-weight: bold;
+        }
+
+            .grid-footer a {
+                background-color: #ffffff;
+                color: blue;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                padding: 1px 10px 2px 10px;
+            }
+
+                .grid-footer a:active, a:hover {
+                    background-color: #ffffff;
+                    color: #FFAD33;
+                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                }
+
+        .alternatingRowStyle {
+            background-color: antiquewhite;
+        }
+
+        table .table1 {
+            text-align: left;
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 800px;
+        }
+
+        .tr, .td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "Orders", FormMethod.Post))
+        {
+@Html.AntiForgeryToken()
+
+
+        <table class="table1" align="center">
+            <tr>
+                <td>
+                    <div>ID</div>
+                </td>
+                <td>
+
+                    <input style="margin-bottom:5px; margin-left:5px" type="text" name="id"
+                           class="form-control" id="inputEmail3" placeholder="TimKiem" value="@ViewBag.id">
+                </td>
+
+            </tr>
+            <tr>
+                <td>Trạng Thái</td>
+                <td>
+
+                    <input style="margin-bottom:5px; margin-left:5px" type="text" name="trangthai" class="form-control"
+                           id="inputEmail3" placeholder="Tìm Kiếm" value="@ViewBag.trangthai">
+                </td>
+
+            </tr>
+            <tr>
+                <td>Thời Gian</td>
+                <td>
+
+                    <input type="number" name="dateMin" value="@ViewBag.dateMin" />
+                    Đến<input type="number" name="dateMax" value="@ViewBag.dateMax" />
+                </td>
+
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+
+
+
+                    <button type="submit" class="btn btn-success" style="width:100px; margin-left:5px">Tìm kiếm</button>
+                    <button type="button" class="btn btn-danger" style="width:100px;
+               " onclick="location.href='@Url.Action("Index", "Orders/Index")'">
+                        Nhập mới
+                    </button>
+                </td>
+            </tr>
+        </table>}
+    </div>
+    <hr />
+    <p>
+        @Html.ActionLink("Tạo Đơn Hàng Mới", "Create")
+    </p>
+    <div id="gridContent">
+        @ViewBag.TB
+        @grid.GetHtml(
+                                        tableStyle: "table table-sm table-bordered table-hover table-striped",
+                                        headerStyle: "thead-dark",
+                                        footerStyle: "grid-footer",
+                                        fillEmptyRows: true,
+                                        mode: WebGridPagerModes.Numeric,
+                                        alternatingRowStyle: "alternatingRowStyle",
+                                        columns: new[]  // colums in grid
+                                        {
+          grid.Column("STT",format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
+            grid.Column("OrderID","Mã Đơn Hàng"),
+            grid.Column("CustomerID","Mã Khách Hàng"),
+             grid.Column("Status","Chờ Duyệt"),
+            grid.Column("Notes","Ghi Chú"),
+            grid.Column("Address","Địa Chỉ"  ),
+
+            grid.Column("Payment.PaymentName","Loại Thanh Toán "),
+            grid.Column("Customer.CustomerAddress","Địa Chỉ Giao Hàng"),
+            grid.Column("OrderByDate","Ngày đặt hàng",format:@<text> @item.OrderByDate.ToString("dd/MM/yyyy")</text>),
+
+            grid.Column("Chức năng", format: @<text>
+                <a href="@Url.Action("Edit",
+                        new { id = item.OrderID})" class="edit-btn"><abbr title="Cập nhật dữ liệu"><img src="/images/edit.png" width="20" height="20" /></abbr></a>
+                <a href="@Url.Action("Details",
+                        new { id = item.OrderID})" class="edit-btn"><abbr title="Xem chi tiết"><img src="/images/details.png" width="20" height="20" /></abbr></a>
+                <a href="@Url.Action("Delete",
+                        new { id = item.OrderID})" class="edit-btn"><abbr title="Xóa dữ liệu"><img src="/images/delete.png" width="20" height="20" /></abbr></a>
+            </text>),
+                                                                    }
+                                                                                                                                        )
+    </div>
+</body>
+</html>

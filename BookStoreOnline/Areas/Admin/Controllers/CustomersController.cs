@@ -20,7 +20,16 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             var customers = db.Customers.Include(c => c.User);
             return View(customers.ToList());
         }
+        [HttpPost]
+        public ActionResult Index(string maKH, string hoten)
+        {
 
+            //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
+            /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
+        
+            var customers = db.Customers.Where(abc => abc.CustomerID.Contains(maKH) && (abc.CustomerName ).Contains(hoten));
+            return View(customers.ToList());
+        }
         // GET: Admin/Customers/Details/5
         public ActionResult Details(string id)
         {
@@ -120,6 +129,7 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             db.SaveChanges();
             db.Users.Remove(user);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

@@ -15,9 +15,24 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         private BookStore db = new BookStore();
 
         // GET: Admin/Reviews
+
+     
+
         public ActionResult Index()
         {
-            var reviews = db.Reviews.Include(r => r.Book).Include(r => r.Customer);
+            var reviews = db.Reviews.Include(n => n.Book);
+            return View(db.Reviews.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Index(string maNX, string hoten)
+        {
+
+            //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
+            /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
+
+            var reviews = db.Reviews.Where(abc => abc.ReviewID.Contains(maNX) && (abc.Book.BookID).Contains(hoten));
+
             return View(reviews.ToList());
         }
 
@@ -39,9 +54,11 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         // GET: Admin/Reviews/Create
         public ActionResult Create()
         {
+            Review review = new Review();
+            review.ReviewID = getNewID();
             ViewBag.BookID = new SelectList(db.Books, "BookID", "BookName");
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "CustomerAddress");
-            return View();
+            return View(review);
         }
 
         // POST: Admin/Reviews/Create
@@ -131,6 +148,18 @@ namespace BookStoreOnline.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public String getNewID()
+        {
+            var countOfRows = db.Reviews.Count();
+            if (countOfRows == 0) return "RV-0001";
+            var lastRow = db.Reviews.OrderBy(c => 1 == 1).Skip(countOfRows - 1).FirstOrDefault();
+            String lastID = lastRow.ReviewID;
+            int id = int.Parse(lastID.Split('-')[1]);
+            String str = "" + (id + 1);
+
+            return "RV-" + str.PadLeft(4, '0');
         }
     }
 }

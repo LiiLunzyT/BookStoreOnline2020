@@ -1,70 +1,128 @@
 ﻿@model IEnumerable<Model.EF.Customer>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
+@{ ViewBag.Title = "Index";
+                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+                var grid = new WebGrid(source: Model, rowsPerPage: 4); }
 
-<h2>Index</h2>
+<h2 style="text-align:center">DANH SÁCH KHÁCH HÀNG</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID })
-        </td>
-    </tr>
-}
 
-</table>
+
+<html>
+<head>
+    <style type="text/css">
+        .grid-footer {
+            color: #000;
+            font: 17px Calibri;
+            text-align: center;
+            font-weight: bold;
+        }
+
+            .grid-footer a {
+                background-color: #ffffff;
+                color: blue;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                padding: 1px 10px 2px 10px;
+            }
+
+                .grid-footer a:active, a:hover {
+                    background-color: #ffffff;
+                    color: #FFAD33;
+                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                }
+
+        .alternatingRowStyle {
+            background-color: antiquewhite;
+        }
+
+        table .table1 {
+            text-align: left;
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 800px;
+        }
+
+        .tr, .td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "Customers", FormMethod.Post))
+        {
+@Html.AntiForgeryToken()
+
+
+                <table class="table1" align="center">
+                    <tr>
+                        <td>
+                            <div> Mã Khách Hàng</div>
+                        </td>
+                        <td>
+
+                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="maKH"
+                                   class="form-control" id="inputEmail3" placeholder="TimKiem" value="@ViewBag.maKH">
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Tên Khách Hàng</td>
+                        <td>
+
+                            <input style="margin-bottom:5px; margin-left:5px" type="text" name="hoten" class="form-control"
+                                   id="inputEmail3" placeholder="Tim Kiếm" value="@ViewBag.hoten">
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+
+
+
+                            <button type="submit" class="btn btn-success" style="width:100px; margin-left:5px">Tìm kiếm</button>
+                            <button type="button" class="btn btn-danger" style="width:100px;
+               " onclick="location.href='@Url.Action("Index", "Customers/Index")'">
+                                Nhập mới
+                            </button>
+                        </td>
+                    </tr>
+                </table>}
+    </div>
+    <hr />
+    </p>
+    <div id="gridContent">
+        @ViewBag.TB
+        @grid.GetHtml(
+                                            tableStyle: "table table-sm table-bordered table-hover table-striped",
+                                            headerStyle: "thead-dark",
+                                            footerStyle: "grid-footer",
+                                            fillEmptyRows: true,
+                                            mode: WebGridPagerModes.Numeric,
+                                            alternatingRowStyle: "alternatingRowStyle",
+                                            columns: new[]  // colums in grid
+                                            {
+            grid.Column("STT",format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
+            grid.Column("CustomerID","Mã Khách Hàng"),
+            grid.Column("CustomerName","Tên Khách Hàng"),
+            grid.Column("CustomerAddress","Địa Chỉ"  ),
+            grid.Column("Gender","Giới Tính",format: (@item) => @item.Gender==true?"Nam":"Nữ"),
+            grid.Column("Birth","Ngày Sinh",format:@<text> @item.Birth.ToString("dd/MM/yyyy")</text>),
+            grid.Column("PhoneNumber","Số Điện Thoại"),
+            grid.Column("Email","Email"),
+            grid.Column("Chức năng", format: @<text>
+                <a href="@Url.Action("Edit",
+                        new { id = item.CustomerID})" class="edit-btn"><abbr title="Cập nhật dữ liệu"><img src="/images/edit.png" width="20" height="20" /></abbr></a>
+                <a href="@Url.Action("Details",
+                        new { id = item.CustomerID})" class="edit-btn"><abbr title="Xem chi tiết"><img src="/images/details.png" width="20" height="20" /></abbr></a>
+                <a href="@Url.Action("Delete",
+                        new { id = item.CustomerID})" class="edit-btn"><abbr title="Xóa dữ liệu"><img src="/images/delete.png" width="20" height="20" /></abbr></a>
+            </text>),
+                                                                        })
+    </div>
+
+</body>
+</html>

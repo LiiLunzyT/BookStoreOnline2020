@@ -1,7 +1,8 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -14,18 +15,21 @@ namespace Model.EF
         {
             Books = new HashSet<Book>();
         }
-
+        [DisplayName("Mã Tác Giả")]
         [StringLength(10)]
         public string AuthorID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên Tác Giả Không Hợp Lệ")]
+        [DisplayName("Tên Tác Giả")]
         [StringLength(100)]
         public string AuthorName { get; set; }
 
+        [DisplayName("Số Điện Thoại")]
         [StringLength(20)]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Đường Dẫn Không Hớp Lệ")]
+        [DisplayName("Đường Dẫn")]
         [StringLength(50)]
         public string Url { get; set; }
 

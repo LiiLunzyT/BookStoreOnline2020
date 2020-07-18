@@ -2,6 +2,7 @@ namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -19,6 +20,7 @@ namespace Model.EF
         public string RoleID { get; set; }
 
         [Required]
+        [DisplayName("Vai Trò")]
         [StringLength(50)]
         public string RoleName { get; set; }
 

@@ -11,14 +11,13 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Thể Loại</h4>
+    <div class="form-horizontal">   
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryID, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.EditorFor(model => model.CategoryID, new { htmlAttributes = new { @class = "form-control", } })
                 @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,7 +47,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CateGroupID, "CateGroupID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CateGroupID, "Thuộc Nhóm", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CateGroupID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CateGroupID, "", new { @class = "text-danger" })

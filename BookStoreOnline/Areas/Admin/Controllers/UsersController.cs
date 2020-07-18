@@ -21,6 +21,20 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             return View(users.ToList());
         }
 
+
+        [HttpPost]
+        public ActionResult Index(string idUser, string vaitro)
+        {
+
+            //var nhanViens = db.NhanViens.SqlQuery("exec NhanVien_DS '"+maNV+"' ");
+            /// var nhanViens = db.NhanViens.SqlQuery("SELECT * FROM NhanVien WHERE MaNV='" + maNV + "'");
+
+            var users = db.Users.Where(abc => abc.UserID.Contains(idUser) && (abc.Role.RoleName).Contains(vaitro));
+
+            return View(users.ToList());
+        }
+
+
         // GET: Admin/Users/Details/5
         public ActionResult Details(string id)
         {
@@ -39,8 +53,10 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         // GET: Admin/Users/Create
         public ActionResult Create()
         {
+            User user = new User();
+            user.UserID = getNewID();
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleName");
-            return View();
+            return View(user);
         }
 
         // POST: Admin/Users/Create
@@ -127,6 +143,18 @@ namespace BookStoreOnline.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public String getNewID()
+        {
+            var countOfRows = db.Users.Count();
+            if (countOfRows == 0) return "US-001";
+            var lastRow = db.Users.OrderBy(c => 1 == 1).Skip(countOfRows - 1).FirstOrDefault();
+            String lastID = lastRow.UserID;
+            int id = int.Parse(lastID.Split('-')[1]);
+            String str = "" + (id + 1);
+
+            return "US-" + str.PadLeft(3, '0');
         }
     }
 }

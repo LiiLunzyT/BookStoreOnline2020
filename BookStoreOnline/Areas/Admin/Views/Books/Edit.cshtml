@@ -1,9 +1,9 @@
 ﻿@model Model.EF.Book
 
-@{ ViewBag.Title = "Edit";
+@{ ViewBag.Title = "Sửa thông tin sách";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm("Edit", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -148,7 +148,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
                     </div>
