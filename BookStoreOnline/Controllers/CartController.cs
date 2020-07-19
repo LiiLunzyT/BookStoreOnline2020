@@ -95,7 +95,6 @@ namespace BookStoreOnline.Controllers
             return Json(new { status = true, count = count });
         }
 
-
         public ActionResult Increase(String bookID)
         {
             var sessionCart = (List<CartItem>)Session[CartSession];

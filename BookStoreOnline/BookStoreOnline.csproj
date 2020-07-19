@@ -1759,6 +1759,34 @@
     <Content Include="images\blog\sm-img\3.jpg" />
     <Content Include="images\blog\sm-img\4.jpg" />
     <Content Include="images\blog\sm-img\5.jpg" />
+    <Content Include="images\books\BK-00003.jpg" />
+    <Content Include="images\books\BK-00004.jpg" />
+    <Content Include="images\books\BK-00005.jpg" />
+    <Content Include="images\books\BK-00006.jpg" />
+    <Content Include="images\books\BK-00007.jpg" />
+    <Content Include="images\books\BK-00008.jpg" />
+    <Content Include="images\books\BK-00009.jpg" />
+    <Content Include="images\books\BK-00010.jpg" />
+    <Content Include="images\books\BK-00011.jpg" />
+    <Content Include="images\books\BK-00012.jpg" />
+    <Content Include="images\books\BK-00013.jpg" />
+    <Content Include="images\books\BK-00014.jpg" />
+    <Content Include="images\books\BK-00015.jpg" />
+    <Content Include="images\books\BK-00016.jpg" />
+    <Content Include="images\books\BK-00017.jpg" />
+    <Content Include="images\books\BK-00018.jpg" />
+    <Content Include="images\books\BK-00019.jpg" />
+    <Content Include="images\books\BK-00020.jpg" />
+    <Content Include="images\books\BK-00021.jpg" />
+    <Content Include="images\books\BK-00022.jpg" />
+    <Content Include="images\books\BK-00023.jpg" />
+    <Content Include="images\books\BK-00024.jpg" />
+    <Content Include="images\books\BK-00025.jpg" />
+    <Content Include="images\books\BK-00026.jpg" />
+    <Content Include="images\books\BK-00027.jpg" />
+    <Content Include="images\books\BK-00028.jpg" />
+    <Content Include="images\books\BK-00029.jpg" />
+    <Content Include="images\books\BK-00030.jpg" />
     <Content Include="images\brand\1.png" />
     <Content Include="images\brand\2.png" />
     <Content Include="images\brand\3.png" />
@@ -1964,7 +1992,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="images\books\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
@@ -2407,6 +2434,7 @@
     <Content Include="Views\Customer\Register.cshtml" />
     <Content Include="Views\Cart\Payment.cshtml" />
     <Content Include="Views\Cart\Submit.cshtml" />
+    <Content Include="Views\Cart\_CartFloatExpand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

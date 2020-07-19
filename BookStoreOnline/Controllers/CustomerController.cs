@@ -25,6 +25,12 @@ namespace BookStoreOnline.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session["CUSTOMER_SESSION"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
         [Route("dang-nhap")]
         [HttpPost]
         public ActionResult SendLogin(CustomerLoginViewModel model)

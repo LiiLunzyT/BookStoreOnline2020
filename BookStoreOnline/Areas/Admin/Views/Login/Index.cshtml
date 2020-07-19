@@ -38,7 +38,7 @@
                         <h2 class="panel-title text-center">ĐĂNG NHẬP</h2>
                     </div>
                     <div class="panel-body">
-                        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                        @using (Html.BeginForm("Login", "Login", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
                         {
                             @Html.ValidationSummary(false, "", new { @class = "text-danger" });
                             <fieldset>

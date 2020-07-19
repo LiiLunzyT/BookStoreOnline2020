@@ -4,7 +4,14 @@
     <ul>
         @foreach (var category in ViewData["listCategory"] as List<Model.EF.Category>)
         {
-            <li><a href="/danh-muc/@category.Url">@category.CategoryName <span>(@category.Books.Count)</span></a></li>
+            if (category.CategoryName == ViewBag.selectedCate)
+            {
+                <li><a style="color: red" href="/danh-muc/@category.Url">@category.CategoryName <span>(@category.Books.Count)</span></a></li>
+            }
+            else
+            {
+                <li><a href="/danh-muc/@category.Url">@category.CategoryName <span>(@category.Books.Count)</span></a></li>
+            }
         }
     </ul>
 </aside>

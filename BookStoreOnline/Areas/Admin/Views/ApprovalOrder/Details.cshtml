@@ -4,13 +4,14 @@
     ViewBag.Title = "Chi tiết đơn hàng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 
-    
-
     var grid = new WebGrid(source: Model.OrderDetails, rowsPerPage: 5);
 }
 
 <h2>@ViewBag.Title</h2>
 <hr />
+
+<h3>Mã Hoá đơn: @Model.OrderID</h3>
+<h3>Ngày đặt hàng: @Model.OrderByDate</h3>
 
 <div id="gridContent">
     @ViewBag.TB
@@ -25,7 +26,28 @@
         {
             grid.Column("STT",format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
             grid.Column("Book.BookID","Mã Đơn Hàng"),
-            grid.Column("Book.BookName","Mã Khách Hàng")
+            grid.Column("Book.BookName","Mã Khách Hàng"),
+            grid.Column("Price","Đơn giá"),
+            grid.Column("Quantity","Số Lượng"),
+            grid.Column("Tổng tiền", format: item => @item.Price * item.Quantity),
+            grid.Column("Book.Quantity","Tồn kho"),
+            grid.Column("Tình trạng", format: @<text>
+                @if(item.Book.Quantity < item.Quantity)
+                {
+                    <a href="@Url.Action("Edit", "Books",
+                        new { id = item.BookID})" style="all:unset; cursor: pointer; font-weight: bold; color: red;">
+                    <abbr title="Tăng số lượng tồn kho">
+                        Không đủ tồn kho
+                    </abbr></a>
+                } else 
+                {
+                    <span>Có thể đặt hàng</span>
+                } 
+                
+            </text>),
         }
     )
 </div>
+<h4 style="color: red;">@TempData["ApproveMessage"]</h4>
+@Html.ActionLink("Duyệt đơn hàng" ,"Approve", "ApprovalOrder", new { id = Model.OrderID }, new { @class = "btn btn-success" })
+

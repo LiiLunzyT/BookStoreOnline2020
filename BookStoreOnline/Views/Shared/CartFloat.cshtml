@@ -5,6 +5,13 @@
     {
         list = (List<BookStoreOnline.Models.CartItem>)cart;
     }
+
+    var total = 0;
+
+    foreach (var item in list)
+    {
+        total += item.book.Price * (100 - item.book.DiscountPercent) / 100 * item.Quantity;
+    }
 }
 
 <a class="cartbox_active" href="#"><span class="product_qun"><span class="cart-float-count">@list.Count</span></span></a>
@@ -19,7 +26,7 @@
             <span>Tổng cộng</span>
         </div>
         <div class="total_amount text-right">
-            <span class="cart-float-total">1,000,000 VNĐ</span>
+            <span class="cart-float-total" id="cart-float-total">@total.ToString("N0") VNĐ</span>
         </div>
         <div class="mini_action checkout">
             <a class="checkout__btn" href="/gio-hang/thanh-toan">THANH TOÁN</a>

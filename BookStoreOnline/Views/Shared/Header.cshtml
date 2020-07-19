@@ -52,16 +52,16 @@
                 <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
                     <li class="shop_search"><a class="search__active" href="#"></a></li>
                     <li class="wishlist"><a href="#"></a></li>
-                    <li class="shopcart">
+                    <li class="shopcart" id="cart-float-container">
                         <!-- Start Shopping Cart -->
                         @{
-                            Html.RenderPartial("CartFloat", "CartView");
+                            Html.RenderPartial("CartFloat");
                         }
                         <!-- End Shopping Cart -->
                     </li>
                     <li class="setting__bar__icon">
                         @{
-                            Html.RenderPartial("AccountFloat", "CartView");
+                            Html.RenderPartial("AccountFloat");
                         }
                     </li>
                 </ul>

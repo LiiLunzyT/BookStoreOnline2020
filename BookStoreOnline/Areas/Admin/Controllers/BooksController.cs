@@ -111,15 +111,30 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         {
 
             var imgNV = Request.Files["Avatar"];
-            //Lấy thông tin từ input type=file có tên Avatar
-            string postedFileName = Request.Form["BookID"] + ".jpg";
-            //Lưu hình đại diện về Server
-            var path = Server.MapPath("/images/books/" + postedFileName);
-            imgNV.SaveAs(path);
+            if(imgNV.ContentLength != 0)
+            {
+                try
+                {
+                    //Lấy thông tin từ input type=file có tên Avatar
+                    string postedFileName = Request.Form["BookID"] + ".jpg";
+                    //Lưu hình đại diện về Server
+                    var path = Server.MapPath("/images/books/" + postedFileName);
+                    imgNV.SaveAs(path);
+                }
+                catch
+                { }
+            }
 
             if (ModelState.IsValid)
             {
-                book.Avatar = postedFileName;
+                db.Entry(book).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            if (ModelState.IsValid)
+            {
+                book.Avatar = book.BookID + ".jpg";
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

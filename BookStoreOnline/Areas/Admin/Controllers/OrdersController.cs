@@ -17,7 +17,7 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         // GET: Admin/Orders
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Customer).Include(o => o.Payment);
+            var orders = db.Orders.Include(o => o.Customer).Include(o => o.Payment).Where(o => o.Status.Equals("Đã duyệt"));
             return View(orders.ToList());
         }
 

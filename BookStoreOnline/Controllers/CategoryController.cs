@@ -18,7 +18,7 @@ namespace BookStoreOnline.Controllers
             var dao = new BookDAO();
             var books = dao.listByName(searchString);
 
-            int pageSize = 12;
+            int pageSize = 6;
             int pageNumber = (page ?? 1);
 
             return View(books.ToPagedList(pageNumber, pageSize));
@@ -31,8 +31,10 @@ namespace BookStoreOnline.Controllers
             var category = cDao.getCategoryByUrl(Url);
             var books = category.Books.ToList();
 
-            int pageSize = 12;
+            int pageSize = 6;
             int pageNumber = (page ?? 1);
+
+            TempData["selCate"] = category;
 
             return View(books.ToPagedList(pageNumber, pageSize));
         }
@@ -42,7 +44,7 @@ namespace BookStoreOnline.Controllers
         {
             var dao = new CategoryDAO();
             ViewData["listCategory"] = dao.listAll();
-            ViewData["selectedCategory"] = cateName;
+            ViewData["CateName"] = cateName;
             return PartialView();
         }
     }

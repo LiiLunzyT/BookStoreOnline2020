@@ -13,8 +13,16 @@ namespace BookStoreOnline.Areas.Admin.Controllers
     public class LoginController : Controller
     {
         // GET: Admin/Login
-        public ActionResult Index()
+        public ActionResult Index(String returnUrl)
         {
+            if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
+                returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
+
+            if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+            {
+                ViewBag.ReturnURL = returnUrl;
+            }
+
             return View();
         }
 
@@ -25,8 +33,12 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(LoginModel model, String returnUrl)
         {
+            string decodedUrl = "";
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodedUrl = Server.UrlDecode(returnUrl);
+
             if (ModelState.IsValid)
             {
                 var dao = new UserDAO();
@@ -39,7 +51,15 @@ namespace BookStoreOnline.Areas.Admin.Controllers
                     userSession.UserName = user.UserName;
                     userSession.Role = user.Role.RoleName;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "Home");
+
+                    if (Url.IsLocalUrl(decodedUrl))
+                    {
+                        return Redirect(decodedUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {

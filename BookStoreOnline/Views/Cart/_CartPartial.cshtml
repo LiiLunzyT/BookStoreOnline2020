@@ -36,8 +36,8 @@
                         var subtotal = price * item.Quantity;
                         total += subtotal;
                     }
-                    <td class="product-thumbnail"><a href="#"><img src="~/images/books/BK-00001.jpg" alt="product img"></a></td>
-                    <td class="product-name"><a href="#">@item.book.BookName</a></td>
+                    <td class="product-thumbnail"><a href="#"><img src="~/images/books/@item.book.Avatar" alt="product img"></a></td>
+                    <td class="product-name"><a href="/chi-tiet/@item.book.Url">@item.book.BookName</a></td>
                     <td class="product-price"><span class="amount">@price.ToString("N0") VNĐ</span> </td>
                     <td class="product-quantity">
                         <button class="btnDecrease" onclick="subItem('@item.book.BookID')" data-bookID="@item.book.BookID">-</button>

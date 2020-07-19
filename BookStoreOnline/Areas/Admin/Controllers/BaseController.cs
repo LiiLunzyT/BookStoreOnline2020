@@ -16,7 +16,7 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             if(sess == null)
             {
                 filterContext.Result = new RedirectToRouteResult(new
-                    RouteValueDictionary(new { controller = "Login", action = "Index", Area = "Admin" }));
+                    RouteValueDictionary(new { controller = "Login", action = "Index", Area = "Admin", returnUrl = Request.RawUrl }));
             }
 
             base.OnActionExecuting(filterContext);
