@@ -42,3 +42,24 @@ table .table1 {
         width: 100%;
         height:auto;
     }
+
+.chart-container {
+    padding: 10px;
+}
+.chart {
+    background-color: red;
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.chart .title {
+    font-size: 2rem;
+}
+.chart .amount {
+    font-size: 3rem;
+}
+.chart .content {
+    font-size: 1.5rem;
+}

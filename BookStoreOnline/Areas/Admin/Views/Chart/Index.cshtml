@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr/>
+
+<div class="row d-flex justify-content-between">
+    <div class="chart-container col-md-6">
+        <div class="chart">
+            <div class="title">Tổng thu</div>
+            <div class="amount">@ViewData["moneycount"] VNĐ</div>
+            <div class="content">Đã thu được hôm nay</div>
+        </div>
+    </div>
+    <div class="chart-container col-md-6">
+        <div class="chart" style="background-color: blue">
+            <div class="title">Hôm nay</div>
+            <div class="amount">@ViewData["sellcount"]</div>
+            <div class="content">cuốn sách đã bán được hôm nay</div>
+        </div>
+    </div>
+    <div class="chart-container col-md-6">
+        <div class="chart" style="background-color: blueviolet">
+            <div class="title">7 ngày gần đây</div>
+            <div class="amount">@ViewData["cuscount"]</div>
+            <div class="content">Khách hàng được đăng ký mới</div>
+        </div>
+    </div>
+    <div class="chart-container col-md-6">
+        <div class="chart" style="background-color: darkgreen">
+            <div class="title">Hiện tại</div>
+            <div class="amount">@ViewData["ordercount"]</div>
+            <div class="content">
+                Đơn hàng đang chờ được duyệt.
+                <a style="all: unset; color: orange; cursor:pointer" href='@Url.Action("Index", "ApprovalOrder")'>Đến duyệt ngay</a>
+            </div>
+        </div>
+    </div>
+</div>
+
