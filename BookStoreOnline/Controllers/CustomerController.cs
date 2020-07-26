@@ -25,6 +25,7 @@ namespace BookStoreOnline.Controllers
             return View();
         }
 
+        [Route("dang-xuat")]
         public ActionResult Logout()
         {
             Session["CUSTOMER_SESSION"] = null;

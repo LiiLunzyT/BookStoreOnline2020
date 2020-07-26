@@ -1,7 +1,7 @@
 ﻿@{ 
     var cart = Session["CartSession"];
     var list = new List<BookStoreOnline.Models.CartItem>();
-    if(cart != null )
+    if (cart != null)
     {
         list = (List<BookStoreOnline.Models.CartItem>)cart;
     }
@@ -17,22 +17,9 @@
 <a class="cartbox_active" href="#"><span class="product_qun"><span class="cart-float-count">@list.Count</span></span></a>
 
 <div class="block-minicart minicart__active">
-    <div class="minicart-content-wrapper">
-        <div class="micart__close">
-            <span>Đóng</span>
-        </div>
-        <div class="items-total d-flex justify-content-between">
-            <span><span class="cart-float-count">@list.Count</span> SẢN PHẨM</span>
-            <span>Tổng cộng</span>
-        </div>
-        <div class="total_amount text-right">
-            <span class="cart-float-total" id="cart-float-total">@total.ToString("N0") VNĐ</span>
-        </div>
-        <div class="mini_action checkout">
-            <a class="checkout__btn" href="/gio-hang/thanh-toan">THANH TOÁN</a>
-        </div>
-        <div class="mini_action cart">
-            <a class="cart__btn" href="/gio-hang">TỚI GIỎ HÀNG</a>
-        </div>
+    <div class="minicart-content-wrapper" id="cart-float-expand">
+        @{
+            Html.RenderPartial("~/Views/Cart/CartFloatExpand.cshtml");
+        }
     </div>
 </div>

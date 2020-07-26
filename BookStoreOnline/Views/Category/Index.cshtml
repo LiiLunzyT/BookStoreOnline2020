@@ -26,9 +26,10 @@
                         <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
                             @{ 
                                 var start = (Model.PageNumber - 1) * Model.PageSize + 1;
-                                var count = (Model.PageNumber - 1) * Model.PageSize + Model.Count;
+                                var end = (Model.PageNumber - 1) * Model.PageSize + Model.Count;
+                                var count = (Model.PageCount - 1) * Model.PageSize + Model.Count;
                             }
-                            <p>Hiển thị sách @(count == 0? 0 : start) - @(start + Model.Count - 1) trên tổng @count sách</p>
+                            <p>Hiển thị sách @(end == 0? 0 : start) - @(start + Model.Count - 1) trên tổng @count sách</p>
                             <div class="orderby__wrapper">
                                 <span>Sắp xếp theo</span>
                                 <select class="shot__byselect">

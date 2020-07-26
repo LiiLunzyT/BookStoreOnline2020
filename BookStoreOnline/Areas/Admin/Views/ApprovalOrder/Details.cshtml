@@ -34,8 +34,8 @@
             grid.Column("Tình trạng", format: @<text>
                 @if(item.Book.Quantity < item.Quantity)
                 {
-                    <a href="@Url.Action("Edit", "Books",
-                        new { id = item.BookID})" style="all:unset; cursor: pointer; font-weight: bold; color: red;">
+                    <a href="@Url.Action("Edit", "Books", 
+                        new { id = item.BookID, returnUrl = Request.RawUrl})" style="all:unset; cursor: pointer; font-weight: bold; color: red;">
                     <abbr title="Tăng số lượng tồn kho">
                         Không đủ tồn kho
                     </abbr></a>

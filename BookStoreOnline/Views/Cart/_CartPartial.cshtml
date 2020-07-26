@@ -45,7 +45,7 @@
                         <button class="btnIncrease" onclick="addItem('@item.book.BookID')" data-bookID="@item.book.BookID">+</button>
                     </td>
                     <td class="product-subtotal">@subtotal.ToString("N0") VNĐ</td>
-                    <td class="product-remove"><a href="#">X</a></td>
+                    <td class="product-remove"><button onclick="removeItem('@item.book.BookID')" href="">X</button></td>
                 </tr>
             }
         </tbody>

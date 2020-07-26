@@ -15,7 +15,10 @@
                     if (res.status == true) {
                         let c = document.querySelectorAll('.cart-float-count')
                         c.forEach(item => item.innerHTML = res.count)
-                        console.log(res.count)
+
+                        $.post(res.Url, function (partial) {
+                            $('#cart-float-expand').html(partial)
+                        })
                     }
                 }
             })

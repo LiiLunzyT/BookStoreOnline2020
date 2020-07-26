@@ -5340,16 +5340,20 @@ h3.widget-title-modal {
   font-weight: 600;
   padding: 20px 0;
   text-transform: uppercase; }
-.wnro__table tbody td.product-remove a {
-  color: #3f3f3f;
+.wnro__table tbody td.product-remove button {
+  color: red;
   display: block;
   font-weight: 700;
+  font-size: 1.5rem;
   height: 1em;
   line-height: 1;
   padding: 10px 0;
+  outline: none;
+  border: none;
+  background: none;
+  margin: 0 auto;
   text-align: center; }
 .wnro__table tbody td.product-remove {
-  padding-right: 0;
   text-align: center;
   width: 40px; }
 .product-thumbnail {

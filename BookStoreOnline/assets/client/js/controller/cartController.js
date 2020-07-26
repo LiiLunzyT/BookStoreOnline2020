@@ -9,58 +9,23 @@
         $('#btnPayment').off('click').on('click', function () {
             window.location.href = "/gio-hang/thanh-toan";
         });
-        $('#btnUpdate').off('click').on('click', function () {
-            var listProduct = $('.txtQuantity');
-            var cartList = [];
-            $.each(listProduct, function (i, item) {
-                cartList.push({
-                    Quantity: $(item).val(),
-                    book: {
-                        BookID: $(item).data('bookid')
-                    }
-                });
-            });
-
-            $.ajax({
-                url: '/Cart/Update',
-                data: { cartModel: JSON.stringify(cartList) },
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
-                        window.location.href = "/gio-hang";
-                    }
-                }
-            })
-        });
 
         $('#btnDeleteAll').off('click').on('click', function () {
-
-            $.ajax({
-                url: '/Cart/DeleteAll',
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
-                        window.location.href = "/gio-hang";
+            if (confirm('Bạn có chắc muốn làm mới giỏ hàng không?')) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Cart/DeleteAll',
+                    success: function (result) {
+                        $('#cart-table-container').html(result)
+                    },
+                    error: function (err) {
+                        console.log(err)
                     }
-                }
-            })
-        });
+                })
+            } else {
 
-        $('.btn-delete').off('click').on('click', function (e) {
-            e.preventDefault();
-            $.ajax({
-                data: { id: $(this).data('id') },
-                url: '/Cart/Delete',
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
-                        window.location.href = "/gio-hang";
-                    }
-                }
-            })
+            }
+            
         });
     }
 }
@@ -93,4 +58,34 @@ function subItem(bookID) {
             console.log(err)
         }
     })
+}
+
+function removeItem(bookID) {
+    if (confirm('Bạn có muốn bỏ cuốn sách này khỏi giỏ hàng không?')) {
+        $.ajax({
+            type: 'POST',
+            url: '/Cart/Remove',
+            data: { bookID: bookID },
+            success: function (result) {
+                if (result.status) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Cart/CartPartial',
+                        success: function (result) {
+                            $('#cart-table-container').html(result)
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    })
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } else {
+
+    }
+    
 }

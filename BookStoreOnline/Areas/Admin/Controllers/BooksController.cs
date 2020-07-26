@@ -85,8 +85,16 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         }
 
         // GET: Admin/Books/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id, string returnUrl)
         {
+            if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
+                returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
+
+            if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+            {
+                ViewBag.ReturnURL = returnUrl;
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -107,8 +115,11 @@ namespace BookStoreOnline.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookID,BookName,Price,DiscountPercent,Quantity,Avatar,CreateByDate,Url,Publisher,PublicByDate,BookCover,Pages,BookDescription,AuthorID,ProducerID")] Book book)
+        public ActionResult Edit([Bind(Include = "BookID,BookName,Price,DiscountPercent,Quantity,Avatar,CreateByDate,Url,Publisher,PublicByDate,BookCover,Pages,BookDescription,AuthorID,ProducerID")] Book book, string returnUrl)
         {
+            string decodedUrl = "";
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodedUrl = Server.UrlDecode(returnUrl);
 
             var imgNV = Request.Files["Avatar"];
             if(imgNV.ContentLength != 0)
@@ -129,7 +140,15 @@ namespace BookStoreOnline.Areas.Admin.Controllers
             {
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (Url.IsLocalUrl(decodedUrl))
+                {
+                    return Redirect(decodedUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Books");
+                }
             }
 
             if (ModelState.IsValid)

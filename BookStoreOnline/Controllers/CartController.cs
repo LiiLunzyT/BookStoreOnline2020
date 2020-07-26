@@ -64,7 +64,10 @@ namespace BookStoreOnline.Controllers
                     {
                         if (item.book.BookID == bookID)
                         {
-                            item.Quantity += quantity;
+                            if(item.Quantity + quantity <= item.book.Quantity)
+                            {
+                                item.Quantity += quantity;
+                            }
                         }
                     }
                 }
@@ -76,7 +79,7 @@ namespace BookStoreOnline.Controllers
                     item.Quantity = quantity;
                     list.Add(item);
                 }
-                //Gán vào session
+
                 Session[CartSession] = list;
                 count = list.Count;
             }
@@ -92,7 +95,12 @@ namespace BookStoreOnline.Controllers
                 Session[CartSession] = list;
                 count = list.Count;
             }
-            return Json(new { status = true, count = count });
+            return Json(new { status = true, count = count, Url = Url.Action("CartFloatExpand") });
+        }
+
+        public ActionResult CartFloatExpand()
+        {
+            return PartialView("CartFloatExpand");
         }
 
         public ActionResult Increase(String bookID)
@@ -131,12 +139,40 @@ namespace BookStoreOnline.Controllers
                     {
                         item.Quantity--;
                     }
+                    break;
                 }
             }
 
             Session[CartSession] = sessionCart;
-            var list = (List<CartItem>)sessionCart;
 
+            return PartialView("_CartPartial");
+        }
+
+        public JsonResult Remove(String bookID)
+        {
+            var sessionCart = (List<CartItem>)Session[CartSession];
+            foreach (var item in sessionCart)
+            {
+                if (item.book.BookID == bookID)
+                {
+                    sessionCart.Remove(item);
+                    break;
+                }
+            }
+
+            Session[CartSession] = sessionCart;
+            return Json(new { status = true });
+        }
+
+        public ActionResult DeleteAll()
+        {
+            Session[CartSession] = null;
+
+            return PartialView("_CartPartial");
+        }
+
+        public ActionResult CartPartial()
+        {
             return PartialView("_CartPartial");
         }
 

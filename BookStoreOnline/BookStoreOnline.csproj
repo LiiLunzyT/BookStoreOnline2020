@@ -1788,6 +1788,8 @@
     <Content Include="images\books\BK-00028.jpg" />
     <Content Include="images\books\BK-00029.jpg" />
     <Content Include="images\books\BK-00030.jpg" />
+    <Content Include="images\books\BK-00031.jpg" />
+    <Content Include="images\books\BK-00032.jpg" />
     <Content Include="images\brand\1.png" />
     <Content Include="images\brand\2.png" />
     <Content Include="images\brand\3.png" />
@@ -2436,7 +2438,7 @@
     <Content Include="Views\Customer\Register.cshtml" />
     <Content Include="Views\Cart\Payment.cshtml" />
     <Content Include="Views\Cart\Submit.cshtml" />
-    <Content Include="Views\Cart\_CartFloatExpand.cshtml" />
+    <Content Include="Views\Cart\CartFloatExpand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
