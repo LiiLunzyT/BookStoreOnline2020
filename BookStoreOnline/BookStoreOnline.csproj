@@ -1734,7 +1734,12 @@
     <Content Include="images\about\team\4.jpg" />
     <Content Include="images\about\team\5.jpg" />
     <Content Include="images\about\team\6.jpg" />
+    <Content Include="images\admin-bg.jpg" />
     <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\avt-1.jpg" />
+    <Content Include="images\avt-2.jpg" />
+    <Content Include="images\avt-3.jpg" />
+    <Content Include="images\avt-4.jpg" />
     <Content Include="images\best-sell-product\1.jpg" />
     <Content Include="images\best-sell-product\2.jpg" />
     <Content Include="images\best-sell-product\3.jpg" />

@@ -1,4 +1,17 @@
-﻿.grid-footer {
+﻿@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+#page-wrapper {
+    background-image: url("../images/admin-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.grid-footer {
     color: #000;
     font: 17px Calibri;
     text-align: center;
@@ -64,27 +77,35 @@ table .table1 {
     font-size: 1.5rem;
 }
 
-.info-card-container {
-    padding: 10px;
-}
-.info-card {
-    border-radius: 8px;
+.card-info {
+    margin-top: 100px;
+    position: relative;
+    padding: 20px;
+    width: 200px;
+    border-radius: 10px;
+    background-color: #635239;
     color: white;
-    background-color: forestgreen;
-
+    -webkit-box-shadow: 7px 10px 24px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 10px 24px -1px rgba(0,0,0,0.75);
+    box-shadow: 7px 10px 24px -1px rgba(0,0,0,0.75);
+}
+.card-image {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+    .card-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 999px;
+        border: 2px solid black;
+    }
+.card-body {
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.info-name, mssv, des {
-    width: 100%;
-}
-
-.info-name {
-    font-size: 1.6rem;
-    font-weight: bold;
-    padding: 10px;
-}
-.des {
-    background-color: darkgreen;
 }
